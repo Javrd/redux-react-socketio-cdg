@@ -1,5 +1,5 @@
 import SocketIO from 'socket.io';
-import { playCard, calculateTurn } from './actions'
+import { playCard, calculateTurn } from './actions';
 
 /* Conexion */
 
@@ -29,7 +29,7 @@ const onPlayCard = (store, client) => {
 
         emitState(state, room);
     });
-}
+};
 
 const onRestart = (store, client) => {
 
@@ -45,12 +45,12 @@ const onRestart = (store, client) => {
         state = store.getState().cdg;
         roomState = state[room];
 
-        console.log('Game restarted on', room, 'by', roomState.players[client.id] + '.')
-        console.log('New target is: ' + roomState.target)
+        console.log('Game restarted on', room, 'by', roomState.players[client.id] + '.');
+        console.log('New target is: ' + roomState.target);
 
         emitState(state, room);
     });
-}
+};
 
 export const onCreateRoom = (store, client) => {
 
@@ -71,19 +71,19 @@ export const onCreateRoom = (store, client) => {
         roomState = state[room];
         //client.join(room);
 
-        console.log('Room', room, 'created by', roomState.players[client.id] + '.')
-        console.log('New target is: ' + roomState.target)
+        console.log('Room', room, 'created by', roomState.players[client.id] + '.');
+        console.log('New target is: ' + roomState.target);
 
         //emitState(state, room);
         emitRooms(Object.keys(state));
     });
-}
+};
 
 
 /* Emisores de eventos */
 
 const emitState = (state, room) => {
-    let clientState = getClientState(state,room)
+    let clientState = getClientState(state,room);
     io.to(room).emit('syncState', clientState);
 };
 
@@ -139,25 +139,25 @@ const getClientRoom = (store, client) => {
     let room;
     let roomState;
 
-    rooms = Object.keys(client.rooms)
+    rooms = Object.keys(client.rooms);
     if (rooms.length === 2){
         rooms.splice(rooms.indexOf(client.id), 1);
         room = rooms[0];
-        roomState = store.getState().cdg[room]
+        roomState = store.getState().cdg[room];
 
         if (roomState.players[client.id] === undefined){
-            console.log('ERROR')
+            console.log('ERROR');
             // throw error
         }
     }
     else {
 
-        console.log('ERROR')
+        console.log('ERROR');
         // throw error
     }
 
-    return room
-}
+    return room;
+};
 
 
 const getClientState = (state, room) => {
@@ -168,4 +168,4 @@ const getClientState = (state, room) => {
         tries: state[room].tries,
         finish: state[room].finish
     };
-}
+};

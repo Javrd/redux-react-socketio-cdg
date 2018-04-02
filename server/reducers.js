@@ -1,13 +1,7 @@
 import { combineReducers } from 'redux';
-import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, FINISH_GAME } from './actions';
+import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, FINISH_GAME, JOIN_ROOM } from './actions';
 import { DECK, POINTS, PAREJA, TRIO } from './deck';
-
-const WAITING = 'WAITING'; //player has already selected a card in this turn
-const PLAYING = 'PLAYING'; //player is choosing a card
-
-const LOBBY = 'LOBBY'; //room hasn't started yet
-const IN_GAME = 'IN_GAME'; //player are playing
-const FINISHED = 'FINISHED'; //game is over
+import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED} from './utils';
 
 const initialPlayerState = {
   playerId: 0,
@@ -18,18 +12,25 @@ const initialPlayerState = {
   score: 0
 };
 const initialRoomState = {
-  players: [initialPlayerState, initialPlayerState, initialPlayerState, initialPlayerState],
+  roomId: '0',
+  players: [],
   deck: Object.assign({}, DECK),
   state: LOBBY,
   round: 0,
   turn: 0
 };
-const initialState = {};
+const initialState = {rooms: [Object.assign({}, initialRoomState, {roomId:'001'})]};
 
 function cdg(state = initialState, action) {
 
   let newState = Object.assign({}, state);
-  let roomState = newState[action.room];
+  let roomState;
+  for(let i=0; i<length(newState.rooms); i++){
+    if(newState.rooms[i].roomId==action.roomId){
+      roomState = newState.rooms[i];
+      break;
+    }
+  }
 
   switch (action.type) {
     case START_ROUND:{
@@ -137,13 +138,11 @@ function cdg(state = initialState, action) {
     //   roomState.finish = false;
     //   return newState;
     // }
-    // case JOIN_ROOM:{
-    //   roomState = newState[action.room];
-    //   roomState.numberOfPlayers++;
-    //   roomState.players[action.playerId] = 'player' + roomState.numberOfPlayers;
+    case JOIN_ROOM:{
+      roomState.players.push(Object.assign({}, initialPlayerState, {playerId:action.playerId}));
       
-    //   return newState;
-    // }
+      return newState;
+    }
     default:{
       return state;
     }

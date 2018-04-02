@@ -1,5 +1,6 @@
 import SocketIO from 'socket.io';
-import { playCard, calculateTurn } from './actions';
+import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom } from './actions';
+import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING} from './utils';
 
 /* Conexion */
 
@@ -13,45 +14,44 @@ console.log('listening on port ', port);
 
 const onPlayCard = (store, client) => {
 
-    client.on('playCard', (key) => {
+    client.on('playCard', (cardId) => {
 
         let state;
         let roomState;
-        let room;
+        let roomId;
 
-        room = getClientRoom(store, client);
+        roomId = getClientRoomId(store, client);
         
-        store.dispatch(pushLetter(key, room));
+        store.dispatch(playCard(cardId, client.id, roomId));
         state = store.getState().cdg;
-        roomState = state[room];
-        console.log((roomState.players[client.id]), 'pressed letter', key,
-                'in room', room + '. State:', roomState.word);
+        roomState = getRoom(state.rooms, roomId);
+        console.log(getPlayer(roomState.players,client.id).playerId, 'played card with id', cardId,
+                'in room', roomId );
 
-        emitState(state, room);
+        let finishedTurn = true;
+        for(let i=0; i<4; i++){
+            if(roomState.players[i].state == PLAYING){
+                finishedTurn = false;
+                break;
+            }
+        }
+
+        if(finishedTurn){
+            store.dispatch(calculateTurn(roomId));
+            if(length(roomState.players[0].hand) == 0){
+                if(length(roomState.deck) == 0){
+                    store.dispatch(finishGame(roomId));
+                }else{
+                    store.dispatch(startRound(roomId));
+                }
+            }
+            emitState(roomState);
+        }
+
     });
 };
 
-const onRestart = (store, client) => {
-
-    client.on('restart', () => {
-
-        let state;
-        let roomState;
-        let room;
-
-        room = getClientRoom(store, client);
-
-        store.dispatch(restart(room));
-        state = store.getState().cdg;
-        roomState = state[room];
-
-        console.log('Game restarted on', room, 'by', roomState.players[client.id] + '.');
-        console.log('New target is: ' + roomState.target);
-
-        emitState(state, room);
-    });
-};
-
+//TODO
 export const onCreateRoom = (store, client) => {
 
     client.on('createRoom', () => {
@@ -82,9 +82,13 @@ export const onCreateRoom = (store, client) => {
 
 /* Emisores de eventos */
 
-const emitState = (state, room) => {
-    let clientState = getClientState(state,room);
-    io.to(room).emit('syncState', clientState);
+const emitState = (roomState) => {
+    let player;
+    for(let i=0; i<4; i++){
+        player = roomState.players[i];
+        let clientState = getClientState(roomState, player);
+        io.to(player.playerId).emit('syncState', clientState);
+    }
 };
 
 const emitRooms = (rooms) => {
@@ -97,75 +101,55 @@ export const onConnection = (store) => {
 
     io.on('connection', (client) => {
 
-
-        let url = client.request.headers.referer.split('/');
-        let room = url[url.length-1];
         let state = store.getState().cdg;
+        let roomState;
+        //De prueba
+        let roomId = '001';
+        // Se registran los eventos que puede lanzar el cliente.
+        onPlayCard(store, client);
 
-        if (!room.includes("room")){
+        store.dispatch(joinRoom(client.id, roomId));
+        client.join(roomId);
 
-            let rooms = Object.keys(state);
+        roomState = getRoom(state.rooms, roomId);
+        console.log(getPlayer(roomState.players,client.id), 'connected on', roomId + '.');
 
-            // Se registran los eventos que puede lanzar el cliente.
-            onCreateRoom(store, client);
+        io.to(roomId).emit('syncNewPlayer', client.id);
 
-            emitRooms(rooms);
-
-        } else {
-
-            let roomState;
-            // Se registran los eventos que puede lanzar el cliente.
-            onLetterPressed(store, client);
-            onRestart(store, client);
-
-            store.dispatch(joinRoom(client.id, room));
-            client.join(room);
-
-            roomState = state[room];
-            console.log(roomState.players[client.id], 'connected on', room + '.');
-
-            emitState(state, room);
+        if(length(roomState.players)==4){
+            store.dispatch(startGame(roomId));
+            store.dispatch(startRound(roomId));
+            emitState(roomState);
         }
+        // let url = client.request.headers.referer.split('/');
+        // let room = url[url.length-1];
+        // let state = store.getState().cdg;
+
+        // if (!room.includes("room")){
+
+        //     let rooms = Object.keys(state);
+
+        //     // Se registran los eventos que puede lanzar el cliente.
+        //     onCreateRoom(store, client);
+
+        //     emitRooms(rooms);
+
+        // } else {
+
+        //     let roomState;
+        //     // Se registran los eventos que puede lanzar el cliente.
+        //     onLetterPressed(store, client);
+        //     onRestart(store, client);
+
+        //     store.dispatch(joinRoom(client.id, room));
+        //     client.join(room);
+
+        //     roomState = state[room];
+        //     console.log(roomState.players[client.id], 'connected on', room + '.');
+
+        //     emitState(state, room);
+        // }
 
 
     });
-};
-
-/* Utiles */
-
-const getClientRoom = (store, client) => {
-
-    let rooms;
-    let room;
-    let roomState;
-
-    rooms = Object.keys(client.rooms);
-    if (rooms.length === 2){
-        rooms.splice(rooms.indexOf(client.id), 1);
-        room = rooms[0];
-        roomState = store.getState().cdg[room];
-
-        if (roomState.players[client.id] === undefined){
-            console.log('ERROR');
-            // throw error
-        }
-    }
-    else {
-
-        console.log('ERROR');
-        // throw error
-    }
-
-    return room;
-};
-
-
-const getClientState = (state, room) => {
-    return {
-        avalibleRooms: Object.keys(state),
-        status: "PLAYING",
-        word: state[room].word,
-        tries: state[room].tries,
-        finish: state[room].finish
-    };
 };

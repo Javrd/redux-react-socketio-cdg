@@ -3,23 +3,28 @@ export const CALCULATE_TURN = 'CALCULATE_TURN';
 export const START_ROUND = 'START_ROUND';
 export const START_GAME = 'START_GAME';
 export const FINISH_GAME = 'FINISH_GAME';
+export const JOIN_ROOM = 'JOIN_ROOM';
 
-export function playCard(cardId, playerId, room) {
-  return { type: PLAY_CARD, cardId: cardId, playerId: playerId, room: room }
+export function playCard(cardId, playerId, roomId) {
+  return { type: PLAY_CARD, cardId: cardId, playerId: playerId, roomId: roomId };
 }
 
-export function calculateTurn(room) {
-  return { type: CALCULATE_TURN, room: room }
+export function calculateTurn(roomId) {
+  return { type: CALCULATE_TURN, roomId: roomId };
 }
 
-export function startRound(room) {
-  return { type: START_ROUND, room: room }
+export function startRound(roomId) {
+  return { type: START_ROUND, roomId: roomId };
 }
 
-export function startGame(room) {
-  return { type: START_GAME, room: room }
+export function startGame(roomId) {
+  return { type: START_GAME, roomId: roomId };
 }
 
-export function finishRound(room) {
-  return { type: FINISH_GAME, room: room }
+export function finishGame(roomId) {
+  return { type: FINISH_GAME, roomId: roomId };
+}
+
+export function joinRoom(playerId, roomId) {
+  return { type: JOIN_ROOM, playerId: playerId, roomId: roomId };
 }

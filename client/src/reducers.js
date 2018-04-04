@@ -1,32 +1,41 @@
-import { combineReducers } from 'redux'
-import { SYNC_STATE, SYNC_ROOMS, WAITING } from './actions'
+import { combineReducers } from 'redux';
+import { SYNC_STATE, SYNC_ROOMS } from './actions';
+import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED} from './utils';
 
 const initialState = {
-  avalibleRooms: [],
-  status: WAITING,
-  word: '...', 
-  tries: 5,
-  finish: true
-}
+  playerId: 0,
+  hand:[],
+  table:[],
+  playedCard: null,
+  playerState: WAITING,
+  score: 0,
+  player2: {table: [], score: 0},
+  player3: {table: [], score: 0},
+  player4: {table: [], score: 0},
+  state: LOBBY,
+  round: 0,
+  turn: 0
+};
 
-function hangman(state = initialState, action) {
+function cdg(state = initialState, action) {
   
   switch (action.type) {
-    case SYNC_ROOMS:
+    case SYNC_ROOMS:{
       let newState = Object.assign({}, state);
-      newState.avalibleRooms = action.avalibleRooms
+      newState.avalibleRooms = action.avalibleRooms;
       return newState;
-
-    case SYNC_STATE:
+    }
+    case SYNC_STATE:{
       return action.state;
-
-    default:
+    }
+    default:{
       return state;
+    }
   }
 }
 
-const hangmanApp = combineReducers({
-  hangman
+const cdgApp = combineReducers({
+  cdg
 });
 
-export default hangmanApp;
+export default cdgApp;

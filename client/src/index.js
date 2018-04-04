@@ -1,14 +1,13 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import hangmanApp from './reducers'
-import ContainerApp from './containers/ContainerApp'
-import { onSyncState, onSyncRooms, emitLetterPressed} from './sockets';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { render } from 'react-dom';
+import { createStore } from 'redux';
+import hangmanApp from './reducers';
+import { onSyncState, onSyncRooms} from './sockets';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import ContainerApp from './containers/ContainerApp';
 
-let store = createStore(hangmanApp)
-listenToWindowEvent('keypress');
+let store = createStore(hangmanApp);
 onSyncState(store);
 onSyncRooms(store);
 
@@ -19,13 +18,5 @@ render(
     </Router>
   </Provider>,
   document.getElementById('root')
-)
+);
 
-function listenToWindowEvent(name) {
-
-  function handleEvent(e) {
-    emitLetterPressed(e.key, store);
-  }
-  window.addEventListener(name, handleEvent);
-  return () => window.removeEventListener(name, handleEvent);
-}

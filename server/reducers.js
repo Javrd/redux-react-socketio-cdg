@@ -8,13 +8,13 @@ const initialPlayerState = {
   hand:[],
   table:[],
   playedCard: null,
-  state: WAITING,
+  playerState: PLAYING,
   score: 0
 };
 const initialRoomState = {
   roomId: '0',
   players: [],
-  deck: Object.assign({}, DECK),
+  deck: DECK.slice(),
   state: LOBBY,
   round: 0,
   turn: 0
@@ -35,14 +35,17 @@ function cdg(state = initialState, action) {
   switch (action.type) {
     case START_ROUND:{
       let deck = roomState.deck;
+      let player, randomNumber, hand;
       roomState.round++;
       roomState.turn = 1;
 
       for(let i=0; i<4; i++){
-        let player = roomState.players[i];
+        player = roomState.players[i];
+        player.playerState = PLAYING;
+        hand = player.hand;
         for(let j=0; j<8; j++){
-          const randomNumber = Math.floor(Math.random()*deck.length);
-          player.hand.append(deck[randomNumber]);
+          randomNumber = Math.floor(Math.random()*deck.length);
+          hand.push(deck[randomNumber]);
           deck.splice(randomNumber,1);
         }
       }
@@ -58,7 +61,7 @@ function cdg(state = initialState, action) {
       }
       let cheats = true;
       for(let i=0; i<player.hand.length; i++){
-        if(player.hand[i].cardId == action.cardId){
+        if(player.hand[i].id == action.cardId){
           player.playedCard = player.hand[i];
           player.hand.splice(i,1);
           cheats= false;
@@ -69,7 +72,7 @@ function cdg(state = initialState, action) {
         player.playedCard = player.hand[0];
         console.log('player '+(player.playerId)+' is trying to cheat');
       }
-      player.state = WAITING;
+      player.playerState = WAITING;
       return newState;
     }
     case CALCULATE_TURN:{
@@ -79,7 +82,7 @@ function cdg(state = initialState, action) {
         roomState.players[i].playedCard.roundPlayed =  roomState.round;
         roomState.players[i].table.push(roomState.players[i].playedCard);
         roomState.players[i].playedCard = null;
-        roomState.players[i].state = PLAYING;
+        roomState.players[i].playerState = PLAYING;
       }
 
       //se intercambian las manos de los jugadores
@@ -130,6 +133,7 @@ function cdg(state = initialState, action) {
     }
 
     // case CREATE_ROOM:{
+      //ojo cuidao con el object.assign con array dentro
     //   roomState = newState[action.room] = Object.assign({}, initialRoomState);
     //   newWord = getNewWord();
     //   roomState.target = newWord.target;
@@ -139,7 +143,11 @@ function cdg(state = initialState, action) {
     //   return newState;
     // }
     case JOIN_ROOM:{
-      roomState.players.push(Object.assign({}, initialPlayerState, {playerId:action.playerId}));
+      let player =Object.assign({}, initialPlayerState);
+      player.playerId = action.playerId;
+      player.hand = [];
+      player.table = [];
+      roomState.players.push(player);
       
       return newState;
     }

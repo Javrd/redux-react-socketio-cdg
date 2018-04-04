@@ -1,7 +1,7 @@
 export const PAREJA = 'PAREJA';
 export const TRIO = 'TRIO';
 
-export const DECK = [];
+let deck = [];
 
 export const POINTS = {
     PAREJA: 5,
@@ -22,9 +22,11 @@ const trio = {
 
 for(let i=0; i<48; i++){
     pareja.id=i+1;
-    DECK.push(Object.assign({}, pareja));
+    deck.push(Object.assign({}, pareja));
 }
 for(let i=48; i<96; i++){
     trio.id=i+1;
-    DECK.push(Object.assign({}, trio));
+    deck.push(Object.assign({}, trio));
 }
+
+export const DECK = deck;

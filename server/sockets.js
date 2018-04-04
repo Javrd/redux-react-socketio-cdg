@@ -30,7 +30,7 @@ const onPlayCard = (store, client) => {
 
         let finishedTurn = true;
         for(let i=0; i<4; i++){
-            if(roomState.players[i].state == PLAYING){
+            if(roomState.players[i].playerState == PLAYING){
                 finishedTurn = false;
                 break;
             }
@@ -38,8 +38,8 @@ const onPlayCard = (store, client) => {
 
         if(finishedTurn){
             store.dispatch(calculateTurn(roomId));
-            if(length(roomState.players[0].hand) == 0){
-                if(length(roomState.deck) == 0){
+            if(roomState.players[0].hand.length == 0){
+                if(roomState.deck.length == 0){
                     store.dispatch(finishGame(roomId));
                 }else{
                     store.dispatch(startRound(roomId));
@@ -112,11 +112,11 @@ export const onConnection = (store) => {
         client.join(roomId);
 
         roomState = getRoom(state.rooms, roomId);
-        console.log(getPlayer(roomState.players,client.id), 'connected on', roomId + '.');
+        console.log(client.id, 'connected on', roomId + '.');
 
         io.to(roomId).emit('syncNewPlayer', client.id);
 
-        if(length(roomState.players)==4){
+        if(roomState.players.length==4){
             store.dispatch(startGame(roomId));
             store.dispatch(startRound(roomId));
             emitState(roomState);

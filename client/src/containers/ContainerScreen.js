@@ -1,15 +1,14 @@
-import { connect } from 'react-redux'
-import Screen from '../components/Screen'
+import { connect } from 'react-redux';
+import Screen from '../components/Screen';
 
 const mapStateToProps = state => {
   return {
-    word: state.hangman.word,
-    tries: state.hangman.tries
-  }
-}
+    state: state.cdg
+  };
+};
 
 const ContainerScreen = connect(
   mapStateToProps
-)(Screen)
+)(Screen);
 
-export default ContainerScreen
+export default ContainerScreen;

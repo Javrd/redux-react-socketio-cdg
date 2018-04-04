@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client';
-import { syncState, syncRooms, PLAYING } from './actions'
+import { syncState, syncRooms, PLAYING } from './actions';
 
 /* Conexion */
 export const  socket = openSocket('http://localhost:8000');
@@ -8,7 +8,6 @@ export const  socket = openSocket('http://localhost:8000');
 export const onSyncState = store => {
     socket.on('syncState', state => {
         store.dispatch(syncState(state));
-        console.log('hola'+state);
     });
 };
 
@@ -19,18 +18,18 @@ export const onSyncRooms = store => {
 };
 
 /* Emisores de eventos */
-export const emitLetterPressed = (key, store) => {
-    let state = store.getState().hangman;
-    if (state.status === PLAYING && !state.finish){
-        socket.emit('letterPressed', key);
-    }
-};
+// export const emitLetterPressed = (key, store) => {
+//     let state = store.getState().hangman;
+//     if (state.status === PLAYING && !state.finish){
+//         socket.emit('letterPressed', key);
+//     }
+// };
 
-export const emitRestart = () => socket.emit('restart');
+export const emitPlayCard = (cardId) => socket.emit('playCard', cardId);
 
-export const emitCreateRoom = (room) => socket.emit('createRoom', room)
+export const emitCreateRoom = (room) => socket.emit('createRoom', room);
 
 export const emitJoinRoom = (room) => {
   socket.emit('joinRoom', room);
   window.location.href = '/'+room;
-}
+};

@@ -8,7 +8,7 @@ export const IN_GAME = 'IN_GAME'; //player are playing
 export const FINISHED = 'FINISHED'; //game is over
 
 export const getPlayer=(players, playerId)=>{
-    for(let i=0; i<length(players); i++){
+    for(let i=0; i<players.length; i++){
         if(players[i].playerId==playerId){
             return players[i];
         }
@@ -17,7 +17,7 @@ export const getPlayer=(players, playerId)=>{
 };
 
 export const getRoom=(rooms, roomId)=>{
-    for(let i=0; i<length(rooms); i++){
+    for(let i=0; i<rooms.length; i++){
         if(rooms[i].roomId==roomId){
             return rooms[i];
         }
@@ -43,7 +43,7 @@ export const getClientState = (roomState, player) => {
     let player3 = roomState.players[(posPlayer+2)%4];
     let player4 = roomState.players[(posPlayer+3)%4];
 
-    return Object.assign({},player,{
+    let hola = Object.assign({},player,{
         player2: {
             table: player2.table,
             score: player2.score
@@ -60,4 +60,8 @@ export const getClientState = (roomState, player) => {
         round: roomState.round,
         turn: roomState.turn
     });
+    
+    //console.log(hola.hand.length);
+
+    return hola;
 };

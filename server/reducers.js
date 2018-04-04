@@ -25,7 +25,7 @@ function cdg(state = initialState, action) {
 
   let newState = Object.assign({}, state);
   let roomState;
-  for(let i=0; i<length(newState.rooms); i++){
+  for(let i=0; i<newState.rooms.length; i++){
     if(newState.rooms[i].roomId==action.roomId){
       roomState = newState.rooms[i];
       break;

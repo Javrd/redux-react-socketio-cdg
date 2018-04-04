@@ -22,9 +22,9 @@ const trio = {
 
 for(let i=0; i<48; i++){
     pareja.id=i+1;
-    DECK.append(Object.assign({}, pareja));
+    DECK.push(Object.assign({}, pareja));
 }
 for(let i=48; i<96; i++){
     trio.id=i+1;
-    DECK.append(Object.assign({}, trio));
+    DECK.push(Object.assign({}, trio));
 }

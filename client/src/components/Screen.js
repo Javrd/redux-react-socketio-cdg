@@ -9,32 +9,32 @@ const Screen = ({ state }) => {
       <div>Player</div>
       <div>{state.playerId}</div>
       <div>Mano:{state.hand.map((card) =>
-        <button onClick={(e) => emitPlayCard(card.id)}>{card.id}</button>
+        <button onClick={() => emitPlayCard(card.id)}>{card.type}</button>
       )}</div>
-      <div>Mesa:{state.table.map((card) =>
-        <div> {card.id}  </div> 
-      )}</div>
-      <div>{state.playedCard}</div>
-      <div>{state.playerState}</div>
-      <div>{state.score}</div>
+      <div>Mesa:<div>{state.table.map((card) =>
+        <span>{card.type} </span>
+      )}</div></div>
+      {/* <div>{state.playedCard}</div> */}
+      <div>Player state: {state.playerState}</div>
+      <div>Score: {state.score}</div>
       ---------------------------------------------------
       <div>Player2</div>
-      Mesa:{state.player2.table.map((card) =>
-        <div> {card.id}  </div> 
-      )}
-      <div>{state.player2.score}</div>
+      <div>Mesa:<div>{state.player2.table.map((card) =>
+        <span>{card.type} </span>
+      )}</div></div>
+      <div>Score: {state.player2.score}</div>
       ---------------------------------------------------
       <div>Player3</div>
-      Mesa:{state.player3.table.map((card) =>
-        <div> {card.id}  </div> 
-      )}
-      <div>{state.player3.score}</div>
+      <div>Mesa:<div>{state.player3.table.map((card) =>
+        <span>{card.type} </span>
+      )}</div></div>
+      <div>Score: {state.player3.score}</div>
       ---------------------------------------------------
       <div>Player4</div>
-      Mesa:{state.player4.table.map((card) =>{
-        <div> {card.id}  </div> 
-      })}
-      <div>{state.player4.score}</div>
+      <div>Mesa:<div>{state.player4.table.map((card) =>
+        <span>{card.type} </span>
+      )}</div></div>
+      <div>Score: {state.player4.score}</div>
       ---------------------------------------------------
       <div>Misc</div>
       <div>estado sala:{state.state}</div>

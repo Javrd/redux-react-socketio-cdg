@@ -52,6 +52,9 @@ function cdg(state = initialState, action) {
       return newState;
     }
     case PLAY_CARD:{
+      if(roomState.state==FINISHED){
+        return newState;
+      }
       let player;
       for(let i=0; i<4; i++){
         if(roomState.players[i].playerId == action.playerId){
@@ -59,20 +62,22 @@ function cdg(state = initialState, action) {
           break;
         }
       }
-      let cheats = true;
-      for(let i=0; i<player.hand.length; i++){
-        if(player.hand[i].id == action.cardId){
-          player.playedCard = player.hand[i];
-          player.hand.splice(i,1);
-          cheats= false;
-          break;
+      if(player.playerState==PLAYING){
+        let cheats = true;
+        for(let i=0; i<player.hand.length; i++){
+          if(player.hand[i].id == action.cardId){
+            player.playedCard = player.hand[i];
+            player.hand.splice(i,1);
+            cheats= false;
+            break;
+          }
         }
+        if(cheats){
+          player.playedCard = player.hand[0];
+          console.log('player '+(player.playerId)+' is trying to cheat');
+        }
+        player.playerState = WAITING;
       }
-      if(cheats){
-        player.playedCard = player.hand[0];
-        console.log('player '+(player.playerId)+' is trying to cheat');
-      }
-      player.playerState = WAITING;
       return newState;
     }
     case CALCULATE_TURN:{
@@ -108,12 +113,11 @@ function cdg(state = initialState, action) {
       for(let i=0; i<4; i++){
         let player = roomState.players[i];
         let table = player.table;
-        let score = player.score;
-        for(let j=0; j<3; j++){
+        for(let j=1; j<4; j++){
           parejas = 0;
           trios = 0;
           //las cartas estan ordenadas por turno jugado TODO hacer comprobacion
-          for(let k=0; k<length(table); k++){
+          for(let k=0; k<table.length; k++){
             if(table[k].roundPlayed==j){
               if(table[k].type==PAREJA){
                 parejas++;
@@ -122,8 +126,8 @@ function cdg(state = initialState, action) {
               }
             }
           }
-          score = score + Math.floor(parejas/2)*POINTS.PAREJA;
-          score = score + Math.floor(trios/3)*POINTS.TRIO;
+          player.score = player.score + Math.floor(parejas/2)*POINTS.PAREJA;
+          player.score = player.score + Math.floor(trios/3)*POINTS.TRIO;
         }
       }
 

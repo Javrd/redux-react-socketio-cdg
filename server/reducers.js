@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, FINISH_GAME, JOIN_ROOM } from './actions';
-import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL } from './deck';
+import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, SIMPLE1, SIMPLE2, SIMPLE3, COMBO } from './deck';
 import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED} from './utils';
 
 const initialPlayerState = {
@@ -111,6 +111,7 @@ function cdg(state = initialState, action) {
       let parejas;
       let trios;
       let acumulativos;
+      let combo;
       for(let i=0; i<4; i++){
         let player = roomState.players[i];
         let table = player.table;
@@ -118,6 +119,7 @@ function cdg(state = initialState, action) {
           parejas = 0;
           trios = 0;
           acumulativos = 0;
+          combo = false;
           //las cartas estan ordenadas por turno jugado TODO hacer comprobacion
           for(let k=0; k<table.length; k++){
             if(table[k].roundPlayed==j){
@@ -129,6 +131,29 @@ function cdg(state = initialState, action) {
                 acumulativos++;
               } else if(table[k].type==INCREMENTAL){
                 player.score = player.score + table[k].turnPlayed;
+              } else if(table[k].type==COMBO){
+                combo = true;
+              } else if(table[k].type==SIMPLE1){
+                if(combo){
+                  player.score = player.score + POINTS.SIMPLE1*POINTS.COMBO;
+                  combo = false;
+                }else{
+                  player.score = player.score + POINTS.SIMPLE1;
+                }
+              } else if(table[k].type==SIMPLE2){
+                if(combo){
+                  player.score = player.score + POINTS.SIMPLE2*POINTS.COMBO;
+                  combo = false;
+                }else{
+                  player.score = player.score + POINTS.SIMPLE2;
+                }
+              } else if(table[k].type==SIMPLE3){
+                if(combo){
+                  player.score = player.score + POINTS.SIMPLE3*POINTS.COMBO;
+                  combo = false;
+                }else{
+                  player.score = player.score + POINTS.SIMPLE3;
+                }
               }
             }
           }

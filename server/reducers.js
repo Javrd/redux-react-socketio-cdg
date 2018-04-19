@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, FINISH_GAME, JOIN_ROOM } from './actions';
-import { DECK, POINTS, PAREJA, TRIO } from './deck';
+import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL } from './deck';
 import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED} from './utils';
 
 const initialPlayerState = {
@@ -110,12 +110,14 @@ function cdg(state = initialState, action) {
       //TODO
       let parejas;
       let trios;
+      let acumulativos;
       for(let i=0; i<4; i++){
         let player = roomState.players[i];
         let table = player.table;
         for(let j=1; j<4; j++){
           parejas = 0;
           trios = 0;
+          acumulativos = 0;
           //las cartas estan ordenadas por turno jugado TODO hacer comprobacion
           for(let k=0; k<table.length; k++){
             if(table[k].roundPlayed==j){
@@ -123,11 +125,16 @@ function cdg(state = initialState, action) {
                 parejas++;
               } else if(table[k].type==TRIO){
                 trios++;
+              } else if(table[k].type==ACUMULATIVO){
+                acumulativos++;
+              } else if(table[k].type==INCREMENTAL){
+                player.score = player.score + table[k].turnPlayed;
               }
             }
           }
           player.score = player.score + Math.floor(parejas/2)*POINTS.PAREJA;
           player.score = player.score + Math.floor(trios/3)*POINTS.TRIO;
+          player.score = player.score + POINTS.ACUMULATIVO[acumulativos];
         }
       }
 

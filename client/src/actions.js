@@ -5,6 +5,6 @@ export function syncState(state) {
   return { type: SYNC_STATE, state: state };
 }
 
-export function syncRooms(avalibleRooms) {
-  return { type: SYNC_ROOMS, avalibleRooms: avalibleRooms };
+export function syncRooms(rooms) {
+  return { type: SYNC_ROOMS, rooms: rooms };
 }

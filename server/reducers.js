@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, FINISH_GAME, JOIN_ROOM } from './actions';
-import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, SIMPLE1, SIMPLE2, SIMPLE3, COMBO } from './deck';
-import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED} from './utils';
+import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, 
+  FINISH_GAME, JOIN_ROOM, CREATE_ROOM } from './actions';
+import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, 
+  SIMPLE1, SIMPLE2, SIMPLE3, COMBO } from './deck';
+import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer} from './utils';
 
 const initialPlayerState = {
   playerId: 0,
@@ -12,25 +14,27 @@ const initialPlayerState = {
   score: 0
 };
 const initialRoomState = {
-  roomId: '0',
+  roomId: 0,
   players: [],
   deck: DECK.slice(),
   state: LOBBY,
   round: 0,
   turn: 0
 };
-const initialState = {rooms: [Object.assign({}, initialRoomState, {roomId:'001'})]};
+const initialState = {rooms: [Object.assign({}, initialRoomState, {roomId: 0})]};
 
 function cdg(state = initialState, action) {
 
   let newState = Object.assign({}, state);
   let roomState;
-  for(let i=0; i<newState.rooms.length; i++){
-    if(newState.rooms[i].roomId==action.roomId){
-      roomState = newState.rooms[i];
-      break;
+  if(action.type != CREATE_ROOM){
+    for(let i=0; i<newState.rooms.length; i++){
+      if(newState.rooms[i].roomId==action.roomId){
+        roomState = newState.rooms[i];
+        break;
+      }
     }
-  }
+  }  
 
   switch (action.type) {
     case START_ROUND:{
@@ -168,16 +172,15 @@ function cdg(state = initialState, action) {
       return newState;
     }
 
-    // case CREATE_ROOM:{
-      //ojo cuidao con el object.assign con array dentro
-    //   roomState = newState[action.room] = Object.assign({}, initialRoomState);
-    //   newWord = getNewWord();
-    //   roomState.target = newWord.target;
-    //   roomState.word = newWord.word;
-    //   roomState.tries = 5;
-    //   roomState.finish = false;
-    //   return newState;
-    // }
+    case CREATE_ROOM:{
+      roomState = Object.assign({}, initialRoomState);
+      roomState.players = [];
+      roomState.roomId = newState.rooms.length;
+
+      newState.rooms.push(roomState);
+
+      return newState;
+    }
     case JOIN_ROOM:{
       let player =Object.assign({}, initialPlayerState);
       player.playerId = action.playerId;

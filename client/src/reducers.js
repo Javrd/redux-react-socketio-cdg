@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { SYNC_STATE, SYNC_ROOMS } from './actions';
-import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED} from './utils';
+import {WAITING, LOBBY} from './utils';
 
 const initialState = {
   playerId: 0,
@@ -14,7 +14,8 @@ const initialState = {
   player4: {table: [], score: 0},
   state: LOBBY,
   round: 0,
-  turn: 0
+  turn: 0,
+  rooms: []
 };
 
 function cdg(state = initialState, action) {
@@ -22,11 +23,13 @@ function cdg(state = initialState, action) {
   switch (action.type) {
     case SYNC_ROOMS:{
       let newState = Object.assign({}, state);
-      newState.avalibleRooms = action.avalibleRooms;
+      newState.rooms = action.rooms;
       return newState;
     }
     case SYNC_STATE:{
-      return action.state;
+      let newState = Object.assign({}, action.state);
+      newState.rooms = state.rooms;
+      return newState;
     }
     default:{
       return state;

@@ -40,10 +40,13 @@ export const getClientRoomId = (store, client) => {
 export const getClientState = (roomState, player) => {
     let posPlayer = roomState.players.indexOf(player);
     let player2 = roomState.players[(posPlayer+1)%4];
+    player2 = player2? player2: {table:[],score:0};
     let player3 = roomState.players[(posPlayer+2)%4];
+    player3 = player3? player3: {table:[],score:0};
     let player4 = roomState.players[(posPlayer+3)%4];
+    player4 = player4? player4: {table:[],score:0};
 
-    let hola = Object.assign({},player,{
+    return Object.assign({},player,{
         player2: {
             table: player2.table,
             score: player2.score
@@ -60,8 +63,4 @@ export const getClientState = (roomState, player) => {
         round: roomState.round,
         turn: roomState.turn
     });
-    
-    //console.log(hola.hand.length);
-
-    return hola;
 };

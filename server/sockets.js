@@ -1,5 +1,5 @@
 import SocketIO from 'socket.io';
-import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom } from './actions';
+import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom, createRoom } from './actions';
 import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING} from './utils';
 
 /* Conexion */
@@ -55,27 +55,16 @@ const onPlayCard = (store, client) => {
 export const onCreateRoom = (store, client) => {
 
     client.on('createRoom', () => {
-
-        let state;
-        let roomState;
         let room;
-        let numberOfRooms;
+        let newState;
 
-        state = store.getState().cdg;
-        numberOfRooms = Object.keys(state).length;
-        room = "room_" + (numberOfRooms + 1);
+        store.dispatch(createRoom());
 
-        store.dispatch(createRoom(room));
-        //store.dispatch(joinRoom(client.id, room));
-        state = store.getState().cdg;
-        roomState = state[room];
-        //client.join(room);
+        newState = store.getState().cdg;   
+        room = ""+newState.rooms.length-1;
+        console.log('Room', room, 'created by', client.id + '.');
 
-        console.log('Room', room, 'created by', roomState.players[client.id] + '.');
-        console.log('New target is: ' + roomState.target);
-
-        //emitState(state, room);
-        emitRooms(Object.keys(state));
+        emitRooms(newState.rooms);
     });
 };
 
@@ -84,15 +73,22 @@ export const onCreateRoom = (store, client) => {
 
 const emitState = (roomState) => {
     let player;
-    for(let i=0; i<4; i++){
+    for(let i=0; i<roomState.players.length; i++){
         player = roomState.players[i];
         let clientState = getClientState(roomState, player);
         io.to(player.playerId).emit('syncState', clientState);
     }
 };
 
-const emitRooms = (rooms) => {
-    io.emit('syncRooms', rooms);
+const emitRooms = (rooms, client) => {
+    rooms = rooms.map(x => {
+        return {roomId: x.roomId, players: x.players.length};
+    });
+    if (client){
+        io.to(client.id).emit('syncRooms', rooms);
+    } else {
+        io.emit('syncRooms', rooms);
+    }
 };
 
 
@@ -102,54 +98,34 @@ export const onConnection = (store) => {
     io.on('connection', (client) => {
 
         let state = store.getState().cdg;
-        let roomState;
-        //De prueba
-        let roomId = '001';
-        // Se registran los eventos que puede lanzar el cliente.
-        onPlayCard(store, client);
+        let url = client.request.headers.referer.split('/');
+        let roomId = url[url.length-1];
 
-        store.dispatch(joinRoom(client.id, roomId));
-        client.join(roomId);
+        if (!roomId.match(/\d+/)){
+            // Se registran los eventos que puede lanzar el cliente.
+            onCreateRoom(store, client);
+            emitRooms(state.rooms, client);
 
-        roomState = getRoom(state.rooms, roomId);
-        console.log(client.id, 'connected on', roomId + '.');
+        } else {
+            let roomState = getRoom(state.rooms, roomId);
+            if(roomState.players.length<4) {
+                // Se registran los eventos que puede lanzar el cliente.
+                onPlayCard(store, client);
 
-        io.to(roomId).emit('syncNewPlayer', client.id);
+                client.join(roomId);
+                store.dispatch(joinRoom(client.id, roomId));
 
-        if(roomState.players.length==4){
-            store.dispatch(startGame(roomId));
-            store.dispatch(startRound(roomId));
-            emitState(roomState);
+                console.log(client.id, 'connected on', roomId + '.');
+
+                if(roomState.players.length==4){
+                    store.dispatch(startGame(roomId));
+                    store.dispatch(startRound(roomId));
+                }
+                
+                emitState(roomState);
+                emitRooms(state.rooms);
+            }
         }
-        // let url = client.request.headers.referer.split('/');
-        // let room = url[url.length-1];
-        // let state = store.getState().cdg;
-
-        // if (!room.includes("room")){
-
-        //     let rooms = Object.keys(state);
-
-        //     // Se registran los eventos que puede lanzar el cliente.
-        //     onCreateRoom(store, client);
-
-        //     emitRooms(rooms);
-
-        // } else {
-
-        //     let roomState;
-        //     // Se registran los eventos que puede lanzar el cliente.
-        //     onLetterPressed(store, client);
-        //     onRestart(store, client);
-
-        //     store.dispatch(joinRoom(client.id, room));
-        //     client.join(room);
-
-        //     roomState = state[room];
-        //     console.log(roomState.players[client.id], 'connected on', room + '.');
-
-        //     emitState(state, room);
-        // }
-
 
     });
 };

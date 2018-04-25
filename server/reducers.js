@@ -67,20 +67,19 @@ function cdg(state = initialState, action) {
         }
       }
       if(player.playerState==PLAYING){
-        let cheats = true;
+        let cheats = true;   
         for(let i=0; i<player.hand.length; i++){
           if(player.hand[i].id == action.cardId){
             player.playedCard = player.hand[i];
             player.hand.splice(i,1);
             cheats= false;
+            player.playerState = WAITING;
             break;
           }
         }
-        if(cheats){
-          player.playedCard = player.hand[0];
+        if(cheats){          
           console.log('player '+(player.playerId)+' is trying to cheat');
         }
-        player.playerState = WAITING;
       }
       return newState;
     }

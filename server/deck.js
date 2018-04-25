@@ -7,6 +7,7 @@ export const SIMPLE2 = 'SIMPLE2';
 export const SIMPLE3 = 'SIMPLE3';
 export const COMBO = 'COMBO';
 export const FINALE = 'FINALE';
+export const COMUN = 'COMUN';
 
 let deck = [];
 
@@ -18,7 +19,9 @@ export const POINTS = {
     SIMPLE2: 2,
     SIMPLE3: 3,
     COMBO: 3,
-    FINALE: [0,0,7,15]
+    FINALE: [0,0,7,15],
+    COMUN_MAX: [0,10,5,3,0],
+    COMUN_MIN: [0,5,2,1,0]
 };
 
 //turnPlayed, roundPlayed= 0 means that it wasn't played yet
@@ -67,6 +70,11 @@ const finale = {
     turnPlayed: 0,
     roundPlayed:0
 };
+const comun = {
+    type: COMUN,
+    turnPlayed: 0,
+    roundPlayed:0
+};
 
 for(let i=0; i<14; i++){
     pareja.id=i+1;
@@ -104,11 +112,9 @@ for(let i=68; i<76; i++){
     finale.id=i+1;
     deck.push(Object.assign({}, finale));
 }
-
-//Relleno para cuando estén el resto de cartas
 for(let i=76; i<96; i++){
-    pareja.id=i+1;
-    deck.push(Object.assign({}, pareja));
+    comun.id=i+1;
+    deck.push(Object.assign({}, comun));
 }
 
 

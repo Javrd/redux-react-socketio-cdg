@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, 
   FINISH_GAME, JOIN_ROOM, CREATE_ROOM } from './actions';
 import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, 
-  SIMPLE1, SIMPLE2, SIMPLE3, COMBO, FINALE } from './deck';
-import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer} from './utils';
+  SIMPLE1, SIMPLE2, SIMPLE3, COMBO, FINALE, COMUN } from './deck';
+import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, getAllIndexes} from './utils';
 
 const initialPlayerState = {
   playerId: 0,
@@ -171,6 +171,31 @@ function cdg(state = initialState, action) {
           player.score = player.score + POINTS.ACUMULATIVO[acumulativos];
           player.score = player.score + POINTS.FINALE[finale.length];
         }
+      }
+
+      for(let j=1; j<4; j++){
+        let comunes = [0,0,0,0];
+        for(let i=0; i<4; i++){          
+          let player = roomState.players[i];
+          let table = player.table;
+          for(let k=0; k<table.length; k++){
+            if(table[k].roundPlayed==j && table[k].type==COMUN){
+              comunes[i]++;
+            }
+          }
+        }
+        let max = getAllIndexes(comunes,Math.max(...comunes));
+        let min = getAllIndexes(comunes,Math.min(...comunes));
+
+        for(let i=0; i<4; i++){
+          let player = roomState.players[i];
+          if(max.includes(i)){
+            player.score = player.score + POINTS.COMUN_MAX[max.length];
+          }else if(min.includes(i)){
+            player.score = player.score - POINTS.COMUN_MIN[min.length];
+          }
+        }
+        
       }
 
       roomState.state = FINISHED;

@@ -4,7 +4,7 @@ import { syncState, syncRooms } from './actions';
 /* Conexion */
 let socket;
 if (process.env.NODE_ENV==='production'){
-    socket = openSocket('http://localhost:8000');
+    socket = openSocket('http://cdg-tfg.mooo.com/');
 } else {
     socket = openSocket('http://localhost:8000');
 }

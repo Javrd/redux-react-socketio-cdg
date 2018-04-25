@@ -2,7 +2,12 @@ import openSocket from 'socket.io-client';
 import { syncState, syncRooms } from './actions';
 
 /* Conexion */
-export const  socket = openSocket('http://localhost:8000');
+let socket;
+if (process.env.NODE_ENV==='production'){
+    socket = openSocket('http://localhost:8000');
+} else {
+    socket = openSocket('http://localhost:8000');
+}
 
 /* Colectores de eventos */
 export const onSyncState = store => {

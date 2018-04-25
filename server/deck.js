@@ -6,6 +6,7 @@ export const SIMPLE1 = 'SIMPLE1';
 export const SIMPLE2 = 'SIMPLE2';
 export const SIMPLE3 = 'SIMPLE3';
 export const COMBO = 'COMBO';
+export const FINALE = 'FINALE';
 
 let deck = [];
 
@@ -16,7 +17,8 @@ export const POINTS = {
     SIMPLE1: 1,
     SIMPLE2: 2,
     SIMPLE3: 3,
-    COMBO: 3
+    COMBO: 3,
+    FINALE: [0,0,7,15]
 };
 
 //turnPlayed, roundPlayed= 0 means that it wasn't played yet
@@ -60,6 +62,11 @@ const combo = {
     turnPlayed: 0,
     roundPlayed:0
 };
+const finale = {
+    type: FINALE,
+    turnPlayed: 0,
+    roundPlayed:0
+};
 
 for(let i=0; i<14; i++){
     pareja.id=i+1;
@@ -93,8 +100,13 @@ for(let i=64; i<68; i++){
     combo.id=i+1;
     deck.push(Object.assign({}, combo));
 }
+for(let i=68; i<76; i++){
+    finale.id=i+1;
+    deck.push(Object.assign({}, finale));
+}
+
 //Relleno para cuando estén el resto de cartas
-for(let i=68; i<96; i++){
+for(let i=76; i<96; i++){
     pareja.id=i+1;
     deck.push(Object.assign({}, pareja));
 }

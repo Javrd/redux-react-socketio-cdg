@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, 
   FINISH_GAME, JOIN_ROOM, CREATE_ROOM } from './actions';
 import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, 
-  SIMPLE1, SIMPLE2, SIMPLE3, COMBO } from './deck';
+  SIMPLE1, SIMPLE2, SIMPLE3, COMBO, FINALE } from './deck';
 import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer} from './utils';
 
 const initialPlayerState = {
@@ -119,6 +119,7 @@ function cdg(state = initialState, action) {
       for(let i=0; i<4; i++){
         let player = roomState.players[i];
         let table = player.table;
+        let finale = [];
         for(let j=1; j<4; j++){
           parejas = 0;
           trios = 0;
@@ -158,12 +159,17 @@ function cdg(state = initialState, action) {
                 }else{
                   player.score = player.score + POINTS.SIMPLE3;
                 }
+              } else if(table[k].type==FINALE){
+                if(!finale.includes(table[k].roundPlayed)){
+                  finale.push(table[k].roundPlayed);
+                }
               }
             }
           }
           player.score = player.score + Math.floor(parejas/2)*POINTS.PAREJA;
           player.score = player.score + Math.floor(trios/3)*POINTS.TRIO;
           player.score = player.score + POINTS.ACUMULATIVO[acumulativos];
+          player.score = player.score + POINTS.FINALE[finale.length];
         }
       }
 

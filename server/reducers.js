@@ -16,7 +16,7 @@ const initialPlayerState = {
 const initialRoomState = {
   roomId: 0,
   players: [],
-  deck: DECK.slice(),
+  deck: DECK(),
   state: LOBBY,
   round: 0,
   turn: 0
@@ -206,6 +206,7 @@ function cdg(state = initialState, action) {
     case CREATE_ROOM:{
       roomState = Object.assign({}, initialRoomState);
       roomState.players = [];
+      roomState.deck = DECK();
       roomState.roomId = newState.rooms.length;
 
       newState.rooms.push(roomState);

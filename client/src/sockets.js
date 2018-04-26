@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client';
-import { syncState, syncRooms, redirect } from './actions';
+import { syncState, syncRooms } from './actions';
 
 /* Conexion */
 let socket;

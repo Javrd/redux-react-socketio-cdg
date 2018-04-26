@@ -18,8 +18,8 @@ export const POINTS = {
     SIMPLE3: 3,
     COMBO: 3,
     FINALE: [0,0,7,15],
-    COMUN_MAX: [0,10,5,3,0],
-    COMUN_MIN: [0,5,2,1,0]
+    COMUN_MAX: [0,6,3,2,0],
+    COMUN_MIN: [0,4,2,1,0]
 };
 
 export const DECK = () =>{

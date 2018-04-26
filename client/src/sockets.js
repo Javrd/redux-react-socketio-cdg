@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client';
-import { syncState, syncRooms } from './actions';
+import { syncState, syncRooms, redirect } from './actions';
 
 /* Conexion */
 let socket;
@@ -13,6 +13,13 @@ if (process.env.NODE_ENV==='production'){
 export const onSyncState = store => {
     socket.on('syncState', state => {
         store.dispatch(syncState(state));
+    });
+};
+
+export const onRedirect = () => {
+    socket.on('redirect', () => {
+        window.location.href = '/';
+        console.log(window.location.href);
     });
 };
 

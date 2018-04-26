@@ -91,6 +91,10 @@ const emitRooms = (rooms, client) => {
     }
 };
 
+const emitRedirect = (clientId) => {
+    io.to(clientId).emit('redirect');
+};
+
 
 /* Evento de conexion */
 export const onConnection = (store) => {
@@ -108,22 +112,26 @@ export const onConnection = (store) => {
 
         } else {
             let roomState = getRoom(state.rooms, roomId);
-            if(roomState!=null && roomState.players.length<4) {
-                // Se registran los eventos que puede lanzar el cliente.
-                onPlayCard(store, client);
+            if(roomState!=null ){
+                if(roomState.players.length<4) {
+                    // Se registran los eventos que puede lanzar el cliente.
+                    onPlayCard(store, client);
 
-                client.join(roomId);
-                store.dispatch(joinRoom(client.id, roomId));
+                    client.join(roomId);
+                    store.dispatch(joinRoom(client.id, roomId));
 
-                console.log(client.id, 'connected on', roomId + '.');
+                    console.log(client.id, 'connected on', roomId + '.');
 
-                if(roomState.players.length==4){
-                    store.dispatch(startGame(roomId));
-                    store.dispatch(startRound(roomId));
+                    if(roomState.players.length==4){
+                        store.dispatch(startGame(roomId));
+                        store.dispatch(startRound(roomId));
+                    }
+                    
+                    emitState(roomState);
+                    emitRooms(state.rooms);
                 }
-                
-                emitState(roomState);
-                emitRooms(state.rooms);
+            }else{
+                emitRedirect(client.id);
             }
         }
 

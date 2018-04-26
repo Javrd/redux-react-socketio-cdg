@@ -108,7 +108,7 @@ export const onConnection = (store) => {
 
         } else {
             let roomState = getRoom(state.rooms, roomId);
-            if(roomState.players.length<4) {
+            if(roomState!=null && roomState.players.length<4) {
                 // Se registran los eventos que puede lanzar el cliente.
                 onPlayCard(store, client);
 

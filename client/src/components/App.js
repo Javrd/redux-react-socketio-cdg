@@ -1,6 +1,8 @@
 import ContainerScreen from '../containers/ContainerScreen';
 import ContainerRooms from '../containers/ContainerRooms';
 import '../css/App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import logo from '../logo.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -18,7 +20,7 @@ const App = ({rooms}) => {
         <div className="Container">
           <Route exact path="/" component={ContainerRooms} />
           {rooms.map(x => 
-            <Route exact path={"/"+x.roomId} component={ContainerScreen} />
+            <Route exact key={x.roomId} path={"/"+x.roomId} component={ContainerScreen} />
           )}
         </div>
       </div>

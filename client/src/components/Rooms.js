@@ -10,15 +10,19 @@ const Rooms = ( {rooms} ) => {
         {rooms.map(x => {
           if(x.players<4){
             return (
-                <button key={x.roomId} type="button" onClick={() => emitJoinRoom(x.roomId)}>{
+              <div key={x.roomId}>
+                <button type="button" onClick={() => emitJoinRoom(x.roomId)}>{
                   "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
                 }</button>
+              </div>
             );
           }else{
             return (
-                <button key={x.roomId} type="button" disabled>{
+              <div key={x.roomId}>
+                <button type="button" disabled>{
                   "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
                 }</button>
+              </div>
             );
           }
         })}

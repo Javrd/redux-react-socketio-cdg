@@ -7,6 +7,7 @@ import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, getAllIndexes} fr
 
 const initialPlayerState = {
   playerId: 0,
+  name: "Jugador 1",
   hand:[],
   table:[],
   playedCard: null,
@@ -217,6 +218,7 @@ function cdg(state = initialState, action) {
       player.playerId = action.playerId;
       player.hand = [];
       player.table = [];
+      player.name = "Jugador "+(roomState.players.length+1);
       roomState.players.push(player);
       
       return newState;

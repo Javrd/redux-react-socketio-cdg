@@ -6,30 +6,24 @@ import { emitJoinRoom, emitCreateRoom } from '../sockets';
 const Rooms = ( {rooms} ) => {
   return (
     <div>
-      <div className="Item">
-        <ul>
-          {rooms.map(x => {
-            if(x.players<4){
-              return (
-                <li>
-                  <button type="button" onClick={() => emitJoinRoom(x.roomId)}>{
-                    "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
-                  }</button>
-                </li>
-              );
-            }else{
-              return (
-                <li>
-                  <button type="button" disabled>{
-                    "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
-                  }</button>
-                </li>
-              );
-            }
-          })}
-        </ul>
+      <div>
+        {rooms.map(x => {
+          if(x.players<4){
+            return (
+                <button key={x.roomId} type="button" onClick={() => emitJoinRoom(x.roomId)}>{
+                  "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
+                }</button>
+            );
+          }else{
+            return (
+                <button key={x.roomId} type="button" disabled>{
+                  "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
+                }</button>
+            );
+          }
+        })}
       </div>
-      <div className="Item">
+      <div>
         <button type="button" onClick={() => emitCreateRoom()}>Crear sala</button>
       </div>
     </div>

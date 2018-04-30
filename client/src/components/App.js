@@ -12,17 +12,15 @@ const App = ({rooms}) => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Cdg game</h1>
-        <h2 className="App-text">Selecciona una carta para jugar</h2>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <h1 className="App-title">Cdg</h1>
+        {/* <h2 className="App-text">Selecciona una carta para jugar</h2> */}
       </header>
-      <div className="App-intro">
-        <div className="Container">
-          <Route exact path="/" component={ContainerRooms} />
-          {rooms.map(x => 
-            <Route exact key={x.roomId} path={"/"+x.roomId} component={ContainerScreen} />
-          )}
-        </div>
+      <div className="Container">
+        <Route exact path="/" component={ContainerRooms} />
+        {rooms.map(x => 
+          <Route exact key={x.roomId} path={"/"+x.roomId} component={ContainerScreen} />
+        )}
       </div>
     </div>
   );

@@ -45,9 +45,9 @@ const onPlayCard = (store, client) => {
                     store.dispatch(startRound(roomId));
                 }
             }
-            emitState(roomState);
+            
         }
-
+        emitState(roomState);
     });
 };
 

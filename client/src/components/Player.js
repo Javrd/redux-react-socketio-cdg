@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ContainerTable from '../containers/ContainerTable';
 
-const Player = ({  player, principal }) => {  
+const Player = ({  player, principal, playedCard }) => {  
   return (
     <div className={principal ? 'card text-white bg-primary mb-3' : 'card text-white bg-danger mb-3'}>
       <div className="card-header">
@@ -11,7 +11,10 @@ const Player = ({  player, principal }) => {
 
       <div className="card-body">
           <h5 className="card-title">
-            <div>Score: {player.score}</div>
+            <div><span>Score: {player.score}</span>
+            {(playedCard && principal) &&
+            <span> - Carta jugada: {playedCard.type} </span>
+            }</div>
           </h5>
           {principal &&
             <div>
@@ -36,7 +39,8 @@ const Player = ({  player, principal }) => {
 
 Player.propTypes = {
   player: PropTypes.object.isRequired,
-  principal: PropTypes.bool.isRequired
+  principal: PropTypes.bool.isRequired,
+  playedCard: PropTypes.object.isRequired
 };
 
 export default Player;

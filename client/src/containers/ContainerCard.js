@@ -5,7 +5,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     cardType: ownProps.card.type,
     cardId: ownProps.card.id,
-    hand: ownProps.hand
+    hand: ownProps.hand,
+    playerState: state.cdg.playerState
   };
 };
 

@@ -4,7 +4,8 @@ import Player from '../components/Player';
 const mapStateToProps = (state, ownProps) => {
   return {
     player: ownProps.player,
-    principal: ownProps.principal
+    principal: ownProps.principal,
+    playedCard: state.cdg.playedCard
   };
 };
 

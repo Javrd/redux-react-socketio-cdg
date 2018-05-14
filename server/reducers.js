@@ -11,7 +11,7 @@ const initialPlayerState = {
   hand:[],
   table:[],
   playedCard: null,
-  playerState: PLAYING,
+  playerState: WAITING,
   score: 0
 };
 const initialRoomState = {
@@ -119,7 +119,6 @@ function cdg(state = initialState, action) {
       for(let i=0; i<4; i++){
         let player = roomState.players[i];
         let table = player.table;
-        let finale = [];
         for(let j=1; j<4; j++){
           parejas = 0;
           trios = 0;
@@ -159,28 +158,28 @@ function cdg(state = initialState, action) {
                 }else{
                   player.score = player.score + POINTS.SIMPLE3;
                 }
-              } else if(table[k].type==FINALE){
-                if(!finale.includes(table[k].roundPlayed)){
-                  finale.push(table[k].roundPlayed);
-                }
               }
             }
           }
           player.score = player.score + Math.floor(parejas/2)*POINTS.PAREJA;
           player.score = player.score + Math.floor(trios/3)*POINTS.TRIO;
           player.score = player.score + POINTS.ACUMULATIVO[acumulativos];
-          player.score = player.score + POINTS.FINALE[finale.length];
         }
       }
 
       for(let j=1; j<4; j++){
-        let comunes = [0,0,0,0];
+        let comunes = [0,0,0,0];        
+        let finale = [];
         for(let i=0; i<4; i++){          
           let player = roomState.players[i];
           let table = player.table;
           for(let k=0; k<table.length; k++){
             if(table[k].roundPlayed==j && table[k].type==COMUN){
               comunes[i]++;
+            } else if(table[k].type==FINALE){
+              if(!finale.includes(table[k].roundPlayed)){
+                finale.push(table[k].roundPlayed);
+              }
             }
           }
         }
@@ -194,8 +193,8 @@ function cdg(state = initialState, action) {
           }else if(min.includes(i)){
             player.score = player.score - POINTS.COMUN_MIN[min.length];
           }
-        }
-        
+        }        
+        player.score = player.score + POINTS.FINALE[finale.length];
       }
 
       roomState.state = FINISHED;

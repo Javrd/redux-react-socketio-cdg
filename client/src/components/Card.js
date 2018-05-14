@@ -5,7 +5,7 @@ import { emitPlayCard } from '../sockets';
 const Card = ({  cardType, cardId, hand }) => {
   if(hand){
     return (
-      <button onClick={() => emitPlayCard(cardId)}>{cardType}</button>
+      <button className="btn btn-default" onClick={() => emitPlayCard(cardId)}>{cardType}</button>
     ); 
   }else{
     return (

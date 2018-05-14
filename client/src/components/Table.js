@@ -6,7 +6,7 @@ const Table = ({  cards, hand }) => {
   return (      
     <div>
       {cards.map((card) =>
-        <ContainerCard card={card} hand={hand} key={card.id} />
+        <span key={card.id}><ContainerCard card={card} hand={hand} /></span>
       )}
     </div>
   );

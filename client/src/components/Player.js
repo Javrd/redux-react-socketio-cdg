@@ -11,7 +11,7 @@ const Player = ({  player, principal, playedCard }) => {
 
       <div className="card-body">
           <h5 className="card-title">
-            <div><span>Score: {player.score}</span>
+            <div><span>Puntuación: {player.score}</span>
             {(playedCard && principal) &&
             <span> - Carta jugada: {playedCard.type} </span>
             }</div>

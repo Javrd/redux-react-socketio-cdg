@@ -3,21 +3,22 @@ import React from 'react';
 import { emitPlayCard } from '../sockets';
 import { PLAYING } from '../utils';
 
-const Card = ({  cardType, cardId, hand, playerState }) => {
+const Card = ({  cardType, cardId, hand, cardDescription, playerState }) => {
   if(hand){
     if(playerState===PLAYING){
       return (
-        <button className="btn btn-default" onClick={() => emitPlayCard(cardId)}>{cardType}</button>
+        <button data-toggle="tooltip" title={cardDescription} className="btn btn-default" 
+        onClick={() => emitPlayCard(cardId)}>{cardType}</button>
       ); 
     }else{
       return (
-        <button className="btn btn-default" disabled="disabled" onClick={() => emitPlayCard(cardId)}>{cardType}</button>
+        <button data-toggle="tooltip" title={cardDescription} className="btn btn-default" disabled="disabled" onClick={() => emitPlayCard(cardId)}>{cardType}</button>
       ); 
     }
     
   }else{
     return (
-      <span>{cardType} </span>
+      <span data-toggle="tooltip" title={cardDescription}>{cardType} </span>
     );
 }
 };
@@ -26,6 +27,7 @@ Card.propTypes = {
   cardType: PropTypes.string.isRequired,
   cardId: PropTypes.number.isRequired,
   hand: PropTypes.bool.isRequired,
+  cardDescription: PropTypes.string.isRequired,
   playerState: PropTypes.string.isRequired
 };
 

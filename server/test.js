@@ -3,6 +3,8 @@ import * as actions from './actions'
 
 import initialState from './data/initialState'
 import joinState from './data/joinState' 
+import finishGameState from './data/finishGameState' 
+import countedGameState from './data/countedGameState' 
 
 describe('testing reducer', () => {
     it('should return the initial state', () => {
@@ -17,6 +19,16 @@ describe('testing reducer', () => {
             roomId: "0" 
         })
       ).toEqual(joinState)
+    })
+
+    it('should handle FINISH_GAME', () => {
+      expect(
+        reducer(finishGameState, { 
+            type: actions.FINISH_GAME, 
+            playerId: "HOB-U_SusO4HsaRQAAAA", 
+            roomId: "0" 
+        })
+      ).toEqual(countedGameState)
     })
     
   })

@@ -11,144 +11,168 @@
                         "table": [
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 1,
                                 "roundPlayed": 1,
                                 "id": 1
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 2,
                                 "roundPlayed": 1,
                                 "id": 2
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 1,
                                 "id": 3
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 4,
                                 "roundPlayed": 1,
                                 "id": 4
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 5,
                                 "roundPlayed": 1,
                                 "id": 5
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 6,
                                 "roundPlayed": 1,
                                 "id": 6
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 7,
                                 "roundPlayed": 1,
                                 "id": 7
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 8,
                                 "roundPlayed": 1,
                                 "id": 29
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 1,
                                 "roundPlayed": 2,
                                 "id": 8
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 2,
                                 "roundPlayed": 2,
                                 "id": 9
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 2,
                                 "id": 10
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 4,
                                 "roundPlayed": 2,
                                 "id": 11
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 5,
                                 "roundPlayed": 2,
                                 "id": 12
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 6,
                                 "roundPlayed": 2,
                                 "id": 13
                             },
                             {
                                 "type": "PAREJA",
+                       "description": "Pareja: si juegas dos cartas obtienes 5 puntos",
                                 "turnPlayed": 7,
                                 "roundPlayed": 2,
                                 "id": 14
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 8,
                                 "roundPlayed": 2,
                                 "id": 15
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 1,
                                 "roundPlayed": 3,
                                 "id": 16
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 2,
                                 "roundPlayed": 3,
                                 "id": 17
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 3,
                                 "id": 18
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 4,
                                 "roundPlayed": 3,
                                 "id": 19
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 5,
                                 "roundPlayed": 3,
                                 "id": 20
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 6,
                                 "roundPlayed": 3,
                                 "id": 21
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 7,
                                 "roundPlayed": 3,
                                 "id": 22
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 8,
                                 "roundPlayed": 3,
                                 "id": 23
@@ -165,144 +189,168 @@
                         "table": [
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 1,
                                 "roundPlayed": 1,
                                 "id": 43
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 2,
                                 "roundPlayed": 1,
                                 "id": 44
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 3,
                                 "roundPlayed": 1,
                                 "id": 45
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 4,
                                 "roundPlayed": 1,
                                 "id": 46
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 5,
                                 "roundPlayed": 1,
                                 "id": 47
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 6,
                                 "roundPlayed": 1,
                                 "id": 48
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 7,
                                 "roundPlayed": 1,
                                 "id": 49
                             },
                             {
                                 "type": "INCREMENTAL",
+                        "description": "Incremental: obtienes tantos puntos como el turno que sea",
                                 "turnPlayed": 8,
                                 "roundPlayed": 1,
                                 "id": 50
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 1,
                                 "roundPlayed": 2,
                                 "id": 24
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 2,
                                 "roundPlayed": 2,
                                 "id": 25
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 2,
                                 "id": 26
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 4,
                                 "roundPlayed": 2,
                                 "id": 27
                             },
                             {
                                 "type": "TRIO",
+                       "description": "Trío: si juegas tres cartas obtienes 10 puntos",
                                 "turnPlayed": 5,
                                 "roundPlayed": 2,
                                 "id": 28
                             },
                             {
                                 "type": "SIMPLE1",
+                        "description": "Simple1: otorga 1 punto",
                                 "turnPlayed": 6,
                                 "roundPlayed": 2,
                                 "id": 51
                             },
                             {
                                 "type": "SIMPLE1",
+                        "description": "Simple1: otorga 1 punto",
                                 "turnPlayed": 7,
                                 "roundPlayed": 2,
                                 "id": 52
                             },
                             {
                                 "type": "SIMPLE1",
+                        "description": "Simple1: otorga 1 punto",
                                 "turnPlayed": 8,
                                 "roundPlayed": 2,
                                 "id": 53
                             },
                             {
                                 "type": "COMBO",
+                        "description": "Combo: triplica la puntuación de la próxima carta simple",
                                 "turnPlayed": 1,
                                 "roundPlayed": 3,
                                 "id": 66
                             },
                             {
                                 "type": "COMBO",
+                        "description": "Combo: triplica la puntuación de la próxima carta simple",
                                 "turnPlayed": 2,
                                 "roundPlayed": 3,
                                 "id": 65
                             },
                             {
                                 "type": "SIMPLE2",
+                        "description": "Simple2: otorga 2 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 3,
                                 "id": 59
                             },
                             {
                                 "type": "COMBO",
+                        "description": "Combo: triplica la puntuación de la próxima carta simple",
                                 "turnPlayed": 4,
                                 "roundPlayed": 3,
                                 "id": 67
                             },
                             {
                                 "type": "SIMPLE3",
+                        "description": "Simple3: otorga 3 puntos",
                                 "turnPlayed": 5,
                                 "roundPlayed": 3,
                                 "id": 61
                             },
                             {
                                 "type": "SIMPLE2",
+                        "description": "Simple2: otorga 2 puntos",
                                 "turnPlayed": 6,
                                 "roundPlayed": 3,
                                 "id": 60
                             },
                             {
                                 "type": "COMBO",
+                        "description": "Combo: triplica la puntuación de la próxima carta simple",
                                 "turnPlayed": 7,
                                 "roundPlayed": 3,
                                 "id": 68
                             },
                             {
                                 "type": "SIMPLE3",
+                        "description": "Simple3: otorga 3 puntos",
                                 "turnPlayed": 8,
                                 "roundPlayed": 3,
                                 "id": 62
@@ -318,145 +366,169 @@
                         "hand": [],
                         "table": [
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 1,
                                 "roundPlayed": 1,
                                 "id": 30
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 2,
                                 "roundPlayed": 1,
                                 "id": 31
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 3,
                                 "roundPlayed": 1,
                                 "id": 69
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 4,
                                 "roundPlayed": 1,
                                 "id": 70
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 5,
                                 "roundPlayed": 1,
                                 "id": 32
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 6,
                                 "roundPlayed": 1,
                                 "id": 33
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 7,
                                 "roundPlayed": 1,
                                 "id": 34
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 8,
                                 "roundPlayed": 1,
                                 "id": 35
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 1,
                                 "roundPlayed": 2,
                                 "id": 36
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 2,
                                 "roundPlayed": 2,
                                 "id": 71
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 3,
                                 "roundPlayed": 2,
                                 "id": 72
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 4,
                                 "roundPlayed": 2,
                                 "id": 37
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 5,
                                 "roundPlayed": 2,
                                 "id": 38
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 6,
                                 "roundPlayed": 2,
                                 "id": 39
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 7,
                                 "roundPlayed": 2,
                                 "id": 40
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 8,
                                 "roundPlayed": 2,
                                 "id": 41
                             },
                             {
-                                "type": "ACUMULATIVO",
+                                "description": "Acumulativo: cuantas más juegues, más puntos, 1 3 6 10 15",
+                        "type": "ACUMULATIVO",
                                 "turnPlayed": 1,
                                 "roundPlayed": 3,
                                 "id": 42
                             },
                             {
                                 "type": "SIMPLE2",
+                        "description": "Simple2: otorga 2 puntos",
                                 "turnPlayed": 2,
                                 "roundPlayed": 3,
                                 "id": 58
                             },
                             {
                                 "type": "SIMPLE3",
+                        "description": "Simple3: otorga 3 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 3,
                                 "id": 63
                             },
                             {
                                 "type": "SIMPLE3",
+                        "description": "Simple3: otorga 3 puntos",
                                 "turnPlayed": 4,
                                 "roundPlayed": 3,
                                 "id": 64
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 5,
                                 "roundPlayed": 3,
                                 "id": 73
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 6,
                                 "roundPlayed": 3,
                                 "id": 74
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 7,
                                 "roundPlayed": 3,
                                 "id": 75
                             },
                             {
                                 "type": "FINALE",
+                        "description": "Final: en cuantas más rondas la juegues, más puntos, 0 7 15",
                                 "turnPlayed": 8,
                                 "roundPlayed": 3,
                                 "id": 76
@@ -473,144 +545,168 @@
                         "table": [
                             {
                                 "type": "SIMPLE1",
+                        "description": "Simple1: otorga 1 punto",
                                 "turnPlayed": 1,
                                 "roundPlayed": 1,
                                 "id": 54
                             },
                             {
                                 "type": "SIMPLE2",
+                        "description": "Simple2: otorga 2 puntos",
                                 "turnPlayed": 2,
                                 "roundPlayed": 1,
                                 "id": 55
                             },
                             {
                                 "type": "SIMPLE2",
+                        "description": "Simple2: otorga 2 puntos",
                                 "turnPlayed": 3,
                                 "roundPlayed": 1,
                                 "id": 56
                             },
                             {
                                 "type": "SIMPLE2",
+                        "description": "Simple2: otorga 2 puntos",
                                 "turnPlayed": 4,
                                 "roundPlayed": 1,
                                 "id": 57
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 5,
                                 "roundPlayed": 1,
                                 "id": 77
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 6,
                                 "roundPlayed": 1,
                                 "id": 78
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 7,
                                 "roundPlayed": 1,
                                 "id": 79
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 8,
                                 "roundPlayed": 1,
                                 "id": 80
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 1,
                                 "roundPlayed": 2,
                                 "id": 81
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 2,
                                 "roundPlayed": 2,
                                 "id": 82
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 3,
                                 "roundPlayed": 2,
                                 "id": 83
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 4,
                                 "roundPlayed": 2,
                                 "id": 84
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 5,
                                 "roundPlayed": 2,
                                 "id": 85
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 6,
                                 "roundPlayed": 2,
                                 "id": 86
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 7,
                                 "roundPlayed": 2,
                                 "id": 87
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 8,
                                 "roundPlayed": 2,
                                 "id": 88
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 1,
                                 "roundPlayed": 3,
                                 "id": 89
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 2,
                                 "roundPlayed": 3,
                                 "id": 90
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 3,
                                 "roundPlayed": 3,
                                 "id": 91
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 4,
                                 "roundPlayed": 3,
                                 "id": 92
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 5,
                                 "roundPlayed": 3,
                                 "id": 93
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 6,
                                 "roundPlayed": 3,
                                 "id": 94
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 7,
                                 "roundPlayed": 3,
                                 "id": 95
                             },
                             {
                                 "type": "COMUN",
+                        "description": "Comun: el que más tenga gana 6 puntos, el que menos pierde 4",
                                 "turnPlayed": 8,
                                 "roundPlayed": 3,
                                 "id": 96
@@ -622,7 +718,7 @@
                     }
                 ],
                 "deck": [],
-                "state": "LOBBY",
+                "state": "En espera",
                 "round": 0,
                 "turn": 0
             }

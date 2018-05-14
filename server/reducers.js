@@ -181,6 +181,7 @@ function cdg(state = initialState, action) {
                 finale.push(table[k].roundPlayed);
               }
             }
+            player.score = player.score + POINTS.FINALE[finale.length];
           }
         }
         let max = getAllIndexes(comunes,Math.max(...comunes));
@@ -194,7 +195,7 @@ function cdg(state = initialState, action) {
             player.score = player.score - POINTS.COMUN_MIN[min.length];
           }
         }        
-        player.score = player.score + POINTS.FINALE[finale.length];
+        
       }
 
       roomState.state = FINISHED;

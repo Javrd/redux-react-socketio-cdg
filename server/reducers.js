@@ -167,9 +167,9 @@ function cdg(state = initialState, action) {
         }
       }
 
+      let finale = [[],[],[],[]];
       for(let j=1; j<4; j++){
         let comunes = [0,0,0,0];        
-        let finale = [];
         for(let i=0; i<4; i++){          
           let player = roomState.players[i];
           let table = player.table;
@@ -177,11 +177,10 @@ function cdg(state = initialState, action) {
             if(table[k].roundPlayed==j && table[k].type==COMUN){
               comunes[i]++;
             } else if(table[k].type==FINALE){
-              if(!finale.includes(table[k].roundPlayed)){
-                finale.push(table[k].roundPlayed);
+              if(!finale[i].includes(table[k].roundPlayed)){
+                finale[i].push(table[k].roundPlayed);
               }
             }
-            player.score = player.score + POINTS.FINALE[finale.length];
           }
         }
         let max = getAllIndexes(comunes,Math.max(...comunes));
@@ -194,9 +193,13 @@ function cdg(state = initialState, action) {
           }else if(min.includes(i)){
             player.score = player.score - POINTS.COMUN_MIN[min.length];
           }
-        }        
-        
+        }       
       }
+      for(let i=0; i<4; i++){
+        let player = roomState.players[i];
+        player.score = player.score + POINTS.FINALE[finale[i].length];
+      }
+
 
       roomState.state = FINISHED;
 

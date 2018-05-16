@@ -54,6 +54,8 @@ function cdg(state = initialState, action) {
           deck.splice(randomNumber,1);
         }
       }
+      roomState = contadorPuntos(roomState);
+
       return newState;
     }
     case PLAY_CARD:{
@@ -112,94 +114,7 @@ function cdg(state = initialState, action) {
     }
     case FINISH_GAME:{
       //TODO
-      let parejas;
-      let trios;
-      let acumulativos;
-      let combo;
-      for(let i=0; i<4; i++){
-        let player = roomState.players[i];
-        let table = player.table;
-        for(let j=1; j<4; j++){
-          parejas = 0;
-          trios = 0;
-          acumulativos = 0;
-          combo = false;
-          //las cartas estan ordenadas por turno jugado TODO hacer comprobacion
-          for(let k=0; k<table.length; k++){
-            if(table[k].roundPlayed==j){
-              if(table[k].type==PAREJA){
-                parejas++;
-              } else if(table[k].type==TRIO){
-                trios++;
-              } else if(table[k].type==ACUMULATIVO){
-                acumulativos++;
-              } else if(table[k].type==INCREMENTAL){
-                player.score = player.score + table[k].turnPlayed;
-              } else if(table[k].type==COMBO){
-                combo = true;
-              } else if(table[k].type==SIMPLE1){
-                if(combo){
-                  player.score = player.score + POINTS.SIMPLE1*POINTS.COMBO;
-                  combo = false;
-                }else{
-                  player.score = player.score + POINTS.SIMPLE1;
-                }
-              } else if(table[k].type==SIMPLE2){
-                if(combo){
-                  player.score = player.score + POINTS.SIMPLE2*POINTS.COMBO;
-                  combo = false;
-                }else{
-                  player.score = player.score + POINTS.SIMPLE2;
-                }
-              } else if(table[k].type==SIMPLE3){
-                if(combo){
-                  player.score = player.score + POINTS.SIMPLE3*POINTS.COMBO;
-                  combo = false;
-                }else{
-                  player.score = player.score + POINTS.SIMPLE3;
-                }
-              }
-            }
-          }
-          player.score = player.score + Math.floor(parejas/2)*POINTS.PAREJA;
-          player.score = player.score + Math.floor(trios/3)*POINTS.TRIO;
-          player.score = player.score + POINTS.ACUMULATIVO[acumulativos];
-        }
-      }
-
-      let finale = [[],[],[],[]];
-      for(let j=1; j<4; j++){
-        let comunes = [0,0,0,0];        
-        for(let i=0; i<4; i++){          
-          let player = roomState.players[i];
-          let table = player.table;
-          for(let k=0; k<table.length; k++){
-            if(table[k].roundPlayed==j && table[k].type==COMUN){
-              comunes[i]++;
-            } else if(table[k].type==FINALE){
-              if(!finale[i].includes(table[k].roundPlayed)){
-                finale[i].push(table[k].roundPlayed);
-              }
-            }
-          }
-        }
-        let max = getAllIndexes(comunes,Math.max(...comunes));
-        let min = getAllIndexes(comunes,Math.min(...comunes));
-
-        for(let i=0; i<4; i++){
-          let player = roomState.players[i];
-          if(max.includes(i)){
-            player.score = player.score + POINTS.COMUN_MAX[max.length];
-          }else if(min.includes(i)){
-            player.score = player.score - POINTS.COMUN_MIN[min.length];
-          }
-        }       
-      }
-      for(let i=0; i<4; i++){
-        let player = roomState.players[i];
-        player.score = player.score + POINTS.FINALE[finale[i].length];
-      }
-
+      roomState = contadorPuntos(roomState);
 
       roomState.state = FINISHED;
 
@@ -237,3 +152,96 @@ const cdgApp = combineReducers({
 });
 
 export default cdgApp;
+
+
+function contadorPuntos(roomState){
+  let parejas;
+  let trios;
+  let acumulativos;
+  let combo;
+  for(let i=0; i<4; i++){
+    let player = roomState.players[i];
+    let table = player.table;
+    for(let j=1; j<4; j++){
+      parejas = 0;
+      trios = 0;
+      acumulativos = 0;
+      combo = false;
+      //las cartas estan ordenadas por turno jugado TODO hacer comprobacion
+      for(let k=0; k<table.length; k++){
+        if(table[k].roundPlayed==j){
+          if(table[k].type==PAREJA){
+            parejas++;
+          } else if(table[k].type==TRIO){
+            trios++;
+          } else if(table[k].type==ACUMULATIVO){
+            acumulativos++;
+          } else if(table[k].type==INCREMENTAL){
+            player.score = player.score + table[k].turnPlayed;
+          } else if(table[k].type==COMBO){
+            combo = true;
+          } else if(table[k].type==SIMPLE1){
+            if(combo){
+              player.score = player.score + POINTS.SIMPLE1*POINTS.COMBO;
+              combo = false;
+            }else{
+              player.score = player.score + POINTS.SIMPLE1;
+            }
+          } else if(table[k].type==SIMPLE2){
+            if(combo){
+              player.score = player.score + POINTS.SIMPLE2*POINTS.COMBO;
+              combo = false;
+            }else{
+              player.score = player.score + POINTS.SIMPLE2;
+            }
+          } else if(table[k].type==SIMPLE3){
+            if(combo){
+              player.score = player.score + POINTS.SIMPLE3*POINTS.COMBO;
+              combo = false;
+            }else{
+              player.score = player.score + POINTS.SIMPLE3;
+            }
+          }
+        }
+      }
+      player.score = player.score + Math.floor(parejas/2)*POINTS.PAREJA;
+      player.score = player.score + Math.floor(trios/3)*POINTS.TRIO;
+      player.score = player.score + POINTS.ACUMULATIVO[acumulativos];
+    }
+  }
+
+  let finale = [[],[],[],[]];
+  for(let j=1; j<4; j++){
+    let comunes = [0,0,0,0];        
+    for(let i=0; i<4; i++){          
+      let player = roomState.players[i];
+      let table = player.table;
+      for(let k=0; k<table.length; k++){
+        if(table[k].roundPlayed==j && table[k].type==COMUN){
+          comunes[i]++;
+        } else if(table[k].type==FINALE){
+          if(!finale[i].includes(table[k].roundPlayed)){
+            finale[i].push(table[k].roundPlayed);
+          }
+        }
+      }
+    }
+    let max = getAllIndexes(comunes,Math.max(...comunes));
+    let min = getAllIndexes(comunes,Math.min(...comunes));
+
+    for(let i=0; i<4; i++){
+      let player = roomState.players[i];
+      if(max.includes(i)){
+        player.score = player.score + POINTS.COMUN_MAX[max.length];
+      }else if(min.includes(i)){
+        player.score = player.score - POINTS.COMUN_MIN[min.length];
+      }
+    }       
+  }
+  for(let i=0; i<4; i++){
+    let player = roomState.players[i];
+    player.score = player.score + POINTS.FINALE[finale[i].length];
+  }
+
+  return roomState;
+}

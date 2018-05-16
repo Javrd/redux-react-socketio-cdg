@@ -11,24 +11,21 @@ const Player = ({  player, principal, playedCard }) => {
 
       <div className="card-body">
           <h5 className="card-title">
-            <div><span>Puntuación: {player.score}</span>
+            <div><span>Puntuación {player.score}</span>
             {(playedCard && principal) &&
-            <span> - Carta jugada: {playedCard.type} </span>
+            <span> - Carta jugada {playedCard.type} </span>
             }</div>
           </h5>
           {principal &&
             <div>
               <h5 className="card-title">
-                <div>Mano:</div>
+                <div>Mano</div>
               </h5>
               <p className="card-text">
                 <ContainerTable cards={player.hand} hand={true} /> 
               </p>
             </div>
           }
-          <h5 className="card-title">
-            <div>Mesa:</div>
-          </h5>
           <p className="card-text">
             <ContainerTable cards={player.table} hand={false} />
           </p>

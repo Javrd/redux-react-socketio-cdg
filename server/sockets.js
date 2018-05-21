@@ -1,6 +1,6 @@
 import SocketIO from 'socket.io';
-import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom, createRoom } from './actions';
-import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING} from './utils';
+import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom, leftRoom, createRoom } from './actions';
+import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
 
 /* Conexion */
 
@@ -51,8 +51,7 @@ const onPlayCard = (store, client) => {
     });
 };
 
-//TODO
-export const onCreateRoom = (store, client) => {
+const onCreateRoom = (store, client) => {
 
     client.on('createRoom', () => {
         let room;
@@ -65,6 +64,26 @@ export const onCreateRoom = (store, client) => {
         console.log('Room', room, 'created by', client.id + '.');
 
         emitRooms(newState.rooms);
+    });
+};
+
+const onDisconnection = (store, client) => {
+
+    client.on('disconnect', (reason) => {
+
+        let state = store.getState().cdg;
+        let url = client.request.headers.referer.split('/');
+        let roomId = url[url.length-1];
+
+        let roomState = getRoom(state.rooms, roomId);
+        if(roomState!=null && roomState.state === LOBBY) {
+            // Se registran los eventos que puede lanzar el cliente.
+            console.log("Desconexion de " + client.id)
+            store.dispatch(leftRoom(client.id, roomId));
+            
+            emitState(roomState);
+            emitRooms(state.rooms);            
+        }
     });
 };
 
@@ -114,6 +133,7 @@ export const onConnection = (store) => {
             let roomState = getRoom(state.rooms, roomId);
             if(roomState!=null && roomState.players.length<4) {
                 // Se registran los eventos que puede lanzar el cliente.
+                onDisconnection(store, client);
                 onPlayCard(store, client);
 
                 client.join(roomId);

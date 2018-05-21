@@ -4,6 +4,7 @@ export const START_ROUND = 'START_ROUND';
 export const START_GAME = 'START_GAME';
 export const FINISH_GAME = 'FINISH_GAME';
 export const JOIN_ROOM = 'JOIN_ROOM';
+export const LEFT_ROOM = 'LEFT_ROOM';
 export const CREATE_ROOM = 'CREATE_ROOM';
 
 export function playCard(cardId, playerId, roomId) {
@@ -28,6 +29,10 @@ export function finishGame(roomId) {
 
 export function joinRoom(playerId, roomId) {
   return { type: JOIN_ROOM, playerId: playerId, roomId: roomId };
+}
+
+export function leftRoom(playerId, roomId) {
+  return { type: LEFT_ROOM, playerId: playerId, roomId: roomId };
 }
 
 export function createRoom() {

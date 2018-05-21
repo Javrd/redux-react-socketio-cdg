@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client';
-import { syncState, syncRooms } from './actions';
+import { syncState, syncRooms, decrementaTimer, resetTimer } from './actions';
 
 /* Conexion */
 let socket;
@@ -26,6 +26,21 @@ export const onRedirect = () => {
 export const onSyncRooms = store => {
     socket.on('syncRooms', rooms => {
         store.dispatch(syncRooms(rooms));
+    });
+};
+
+export const onSyncTimer = store => {  
+    var timer;  
+    socket.on('syncTimer', () => {
+        let state = store.getState().cdg;
+        clearInterval(timer);
+        store.dispatch(resetTimer(state));
+        timer = setInterval(() => {
+            state = store.getState().cdg;
+            if(state.time>0){
+                store.dispatch(decrementaTimer(state));
+            }            
+        }, 1000);
     });
 };
 

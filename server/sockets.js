@@ -77,6 +77,15 @@ const emitRedirect = (clientId) => {
     io.to(clientId).emit('redirect');
 };
 
+const emitTimer = (roomState) => {
+    let player;
+    for(let i=0; i<roomState.players.length; i++){
+        player = roomState.players[i];
+        let clientState = getClientState(roomState, player);
+        io.to(player.playerId).emit('syncTimer');
+    }
+};
+
 
 /* Evento de conexion */
 export const onConnection = (store) => {
@@ -118,19 +127,23 @@ export const onConnection = (store) => {
 
     });
 };
-
+var timer;
 async function asyncTimer(store, roomId) {
 
+    let state = store.getState().cdg;
+    let roomState = getRoom(state.rooms,roomId);
+    emitTimer(roomState);
+    clearTimeout(timer);
     await new Promise(resolve => {
-        setTimeout(() => {
+        timer = setTimeout(() => {
             resolve();
         }, 60000);
         });
 
     store.dispatch(finishTimer(roomId));
     
-    let state = store.getState().cdg;
-    let roomState = getRoom(state.rooms,roomId);
+    state = store.getState().cdg;
+    roomState = getRoom(state.rooms,roomId);
 
     finishedTurn(store, roomState, roomId);
 

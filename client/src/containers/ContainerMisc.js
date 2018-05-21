@@ -3,7 +3,8 @@ import Misc from '../components/Misc';
 
 const mapStateToProps = (state) => {
   return {
-    state: state.cdg
+    state: state.cdg,
+    time: state.cdg.time
   };
 };
 

@@ -19,7 +19,7 @@ const Table = ({  cards, hand }) => {
         <div>   
           <span className="ronda">Ronda 1 </span>
             {cards.map((card) =>{
-              if(card.roundPlayed==1){ 
+              if(card.roundPlayed===1){ 
                 return <span key={card.id}><ContainerCard card={card} hand={hand} /></span> 
               }
             })}
@@ -28,7 +28,7 @@ const Table = ({  cards, hand }) => {
           { cards.length>=8 &&
           <span className="ronda">Ronda 2 </span>}
           {cards.map((card) =>{
-            if(card.roundPlayed==2){ 
+            if(card.roundPlayed===2){ 
               return <span key={card.id}><ContainerCard card={card} hand={hand} /></span> 
             }
           })}
@@ -37,7 +37,7 @@ const Table = ({  cards, hand }) => {
           { cards.length>=16 &&
           <span className="ronda">Ronda 3 </span>}
           {cards.map((card) =>{
-            if(card.roundPlayed==3){ 
+            if(card.roundPlayed===3){ 
               return <span key={card.id}><ContainerCard card={card} hand={hand} /></span> 
             }
           })}

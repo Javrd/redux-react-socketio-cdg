@@ -12,7 +12,8 @@ const initialPlayerState = {
   table:[],
   playedCard: null,
   playerState: WAITING,
-  score: 0
+  score: 0,
+  time: 60
 };
 const initialRoomState = {
   roomId: 0,
@@ -94,6 +95,7 @@ function cdg(state = initialState, action) {
         roomState.players[i].table.push(roomState.players[i].playedCard);
         roomState.players[i].playedCard = null;
         roomState.players[i].playerState = PLAYING;
+        roomState.players[i].time = 60;
       }
 
       //se intercambian las manos de los jugadores

@@ -11,7 +11,9 @@
                         "table": [],
                         "playedCard": null,
                         "playerState": "Esperando al siguiente turno",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     },
                     {
                         "playerId": "HOB-U_SusO4HsaRQAAAB",
@@ -20,7 +22,9 @@
                         "table": [],
                         "playedCard": null,
                         "playerState": "Esperando al siguiente turno",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     },
                     {
                         "playerId": "HOB-U_SusO4HsaRQAAAC",
@@ -29,7 +33,9 @@
                         "table": [],
                         "playedCard": null,
                         "playerState": "Esperando al siguiente turno",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     },
                     {
                         "playerId": "HOB-U_SusO4HsaRQAAAC",
@@ -38,7 +44,9 @@
                         "table": [],
                         "playedCard": null,
                         "playerState": "Esperando al siguiente turno",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     }
                 ],
                 "deck": [

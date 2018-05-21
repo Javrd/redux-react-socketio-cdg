@@ -180,7 +180,9 @@
                         ],
                         "playedCard": null,
                         "playerState": "PLAYING",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     },
                     {
                         "playerId": "HOB-U_SusO4HsaRQAAAB",
@@ -358,7 +360,9 @@
                         ],
                         "playedCard": null,
                         "playerState": "PLAYING",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     },
                     {
                         "playerId": "HOB-U_SusO4HsaRQAAAC",
@@ -536,7 +540,9 @@
                         ],
                         "playedCard": null,
                         "playerState": "PLAYING",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     },
                     {
                         "playerId": "HOB-U_SusO4HsaRQAAAC",
@@ -714,7 +720,9 @@
                         ],
                         "playedCard": null,
                         "playerState": "PLAYING",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     }
                 ],
                 "deck": [],

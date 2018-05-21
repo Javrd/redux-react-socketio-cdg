@@ -11,7 +11,9 @@
                         "table": [],
                         "playedCard": null,
                         "playerState": "Esperando al siguiente turno",
-                        "score": 0
+                        "score": 0,
+                        "time": 60,
+                        "type": "Jugando"
                     }
                 ],
                 "deck": [

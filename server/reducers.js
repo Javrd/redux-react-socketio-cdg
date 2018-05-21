@@ -3,7 +3,8 @@ import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME,
   FINISH_GAME, JOIN_ROOM, LEFT_ROOM, CREATE_ROOM, FINISH_TIMER, NAME_CHANGE } from './actions';
 import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, 
   SIMPLE1, SIMPLE2, SIMPLE3, COMBO, FINALE, COMUN } from './deck';
-import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, getAllIndexes, getClientState} from './utils';
+import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, 
+  getAllIndexes, getClientState, HUMAN, BOT} from './utils';
 
 const initialPlayerState = {
   playerId: 0,
@@ -13,7 +14,8 @@ const initialPlayerState = {
   playedCard: null,
   playerState: WAITING,
   score: 0,
-  time: 60
+  time: 60,
+  type: HUMAN
 };
 const initialRoomState = {
   roomId: 0,
@@ -54,6 +56,11 @@ function cdg(state = initialState, action) {
           hand.push(deck[randomNumber]);
           deck.splice(randomNumber,1);
         }
+        if (player.type === BOT){
+          playFirstCard(player)
+          console.log("BOT: " + player.name +" de la sala "+roomState.roomId
+          +" no ha jugado y se le ha escogido la carta "+player.playedCard.type);
+        }
       }
       roomState = contadorPuntos(roomState);
 
@@ -63,13 +70,8 @@ function cdg(state = initialState, action) {
       if(roomState.state==FINISHED){
         return newState;
       }
-      let player;
-      for(let i=0; i<4; i++){
-        if(roomState.players[i].playerId == action.playerId){
-          player = roomState.players[i];
-          break;
-        }
-      }
+      let player = getPlayer(roomState.players, action.playerId);
+
       if(player.playerState==PLAYING){
         let cheats = true;   
         for(let i=0; i<player.hand.length; i++){
@@ -90,12 +92,13 @@ function cdg(state = initialState, action) {
     case CALCULATE_TURN:{
       //cada jugador pasa a tener su playedCard en mesa y cambia su estado
       for(let i=0; i<4; i++){
-        roomState.players[i].playedCard.turnPlayed =  roomState.turn;
-        roomState.players[i].playedCard.roundPlayed =  roomState.round;
-        roomState.players[i].table.push(roomState.players[i].playedCard);
-        roomState.players[i].playedCard = null;
-        roomState.players[i].playerState = PLAYING;
-        roomState.players[i].time = 60;
+        let player = roomState.players[i];
+        player.playedCard.turnPlayed =  roomState.turn;
+        player.playedCard.roundPlayed =  roomState.round;
+        player.table.push(player.playedCard);
+        player.playedCard = null;
+        player.playerState = PLAYING;
+        player.time = 60;
       }
 
       //se intercambian las manos de los jugadores
@@ -106,6 +109,19 @@ function cdg(state = initialState, action) {
       roomState.players[3].hand = firstPlayerHand;
 
       roomState.turn++;
+
+      // Juegan los bots
+      if (roomState.turn<9){
+        let bots = roomState.players.filter(player => player.type === BOT)
+        for(let i in bots){
+          console.log(bots[i].name)
+          if (bots[i].type === BOT){
+            playFirstCard(bots[i]);
+            console.log("BOT: " + bots[i].name +" de la sala "+roomState.roomId
+            +" no ha jugado y se le ha escogido la carta "+bots[i].playedCard.type);
+          }
+        }
+      }
 
       return newState;
     }
@@ -151,8 +167,21 @@ function cdg(state = initialState, action) {
       return newState;
     }
     case LEFT_ROOM:{
-      let player = getPlayer(roomState.players, action.playerId)
-      roomState.players.splice(roomState.players.indexOf(player),1);
+      let player;
+
+      if(roomState!=null) {
+        player = getPlayer(roomState.players, action.playerId)
+        if (roomState.state === LOBBY || roomState.state === FINISHED) {
+          roomState.players.splice(roomState.players.indexOf(player),1);
+        } else if (roomState.state === IN_GAME) {
+          player.type = BOT;
+          if(player.playedCard==null){
+            playFirstCard(player);
+            console.log("BOT: " + player.name +" de la sala "+roomState.roomId
+            +" no ha jugado y se le ha escogido la carta "+player.playedCard.type);
+          }
+        }
+      }
       return newState;
     }      
     case FINISH_TIMER:{      
@@ -160,9 +189,7 @@ function cdg(state = initialState, action) {
         let player = roomState.players[i];
         if(player.playedCard==null){
           let card = player.hand[0].type;
-          player.playedCard = player.hand[0];
-          player.hand.splice(0,1);
-          player.playerState = WAITING;
+          playFirstCard(player);
           console.log(player.name+" de la sala "+roomState.roomId
             +" no ha jugado y se le ha escogido la carta "+card);
         }
@@ -279,4 +306,10 @@ function contadorPuntos(roomState){
   }
 
   return roomState;
+}
+
+function playFirstCard(player) {
+  player.playedCard = player.hand[0];
+  player.hand.splice(0,1);
+  player.playerState = WAITING;
 }

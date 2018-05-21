@@ -74,14 +74,12 @@ const onDisconnection = (store, client) => {
         let roomId = url[url.length-1];
 
         let roomState = getRoom(state.rooms, roomId);
-        if(roomState!=null && roomState.state === LOBBY) {
-            // Se registran los eventos que puede lanzar el cliente.
-            console.log("Desconexion de " + client.id)
-            store.dispatch(leftRoom(client.id, roomId));
-            
-            emitState(roomState);
-            emitRooms(state.rooms);            
-        }
+        // Se registran los eventos que puede lanzar el cliente.
+        console.log("Desconexion de " + client.id)
+        store.dispatch(leftRoom(client.id, roomId));
+        
+        emitState(roomState);
+        emitRooms(state.rooms);            
     });
 };
 

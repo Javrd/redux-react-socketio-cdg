@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, 
-  FINISH_GAME, JOIN_ROOM, CREATE_ROOM, FINISH_TIMER } from './actions';
+  FINISH_GAME, JOIN_ROOM, LEFT_ROOM, CREATE_ROOM, FINISH_TIMER } from './actions';
 import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, 
   SIMPLE1, SIMPLE2, SIMPLE3, COMBO, FINALE, COMUN } from './deck';
 import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, getAllIndexes} from './utils';
@@ -135,14 +135,27 @@ function cdg(state = initialState, action) {
     }
     case JOIN_ROOM:{
       let player =Object.assign({}, initialPlayerState);
+      let playerNumber = roomState.players.length + 1;
+      let playerNames = roomState.players.map(player => player.name);
       player.playerId = action.playerId;
       player.hand = [];
       player.table = [];
-      player.name = "Jugador "+(roomState.players.length+1);
+      player.name = "Jugador "+playerNumber;
+      while (playerNames.includes(player.name)){
+        playerNumber = playerNumber+1;
+        playerNumber = playerNumber === 5? 1: playerNumber;
+        player.name = "Jugador "+playerNumber;
+      }
       roomState.players.push(player);
       
       return newState;
     }
+    case LEFT_ROOM:{
+      let player = getPlayer(roomState.players, action.playerId)
+      roomState.players.splice(roomState.players.indexOf(player),1);
+      return newState;
+    }
+      
     case FINISH_TIMER:{      
       for(let i=0; i<4; i++){
         let player = roomState.players[i];

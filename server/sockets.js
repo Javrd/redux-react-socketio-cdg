@@ -1,6 +1,12 @@
 import SocketIO from 'socket.io';
+<<<<<<< HEAD
 import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom, leftRoom, createRoom } from './actions';
 import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
+=======
+import { playCard, calculateTurn, startRound, startGame, finishGame, 
+    joinRoom, leftRoom, createRoom, finishTimer } from './actions';
+import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
+>>>>>>> 66d5891999e2d6dfd677c8238c74363a0aef6d21
 
 /* Conexion */
 
@@ -28,26 +34,7 @@ const onPlayCard = (store, client) => {
         console.log(getPlayer(roomState.players,client.id).playerId, 'played card with id', cardId,
                 'in room', roomId );
 
-        let finishedTurn = true;
-        for(let i=0; i<4; i++){
-            if(roomState.players[i].playerState == PLAYING){
-                finishedTurn = false;
-                break;
-            }
-        }
-
-        if(finishedTurn){
-            store.dispatch(calculateTurn(roomId));
-            if(roomState.players[0].hand.length == 0){
-                if(roomState.deck.length == 0){
-                    store.dispatch(finishGame(roomId));
-                }else{
-                    store.dispatch(startRound(roomId));
-                }
-            }
-            
-        }
-        emitState(roomState);
+        finishedTurn(store,roomState,roomId);
     });
 };
 
@@ -144,6 +131,7 @@ export const onConnection = (store) => {
                 if(roomState.players.length==4){
                     store.dispatch(startGame(roomId));
                     store.dispatch(startRound(roomId));
+                    asyncTimer(store, roomId);
                 }
                 
                 emitState(roomState);
@@ -155,3 +143,46 @@ export const onConnection = (store) => {
 
     });
 };
+
+async function asyncTimer(store, roomId) {
+
+    await new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 60000);
+        });
+
+    store.dispatch(finishTimer(roomId));
+    
+    let state = store.getState().cdg;
+    let roomState = getRoom(state.rooms,roomId);
+
+    finishedTurn(store, roomState, roomId);
+
+}
+
+function finishedTurn(store, roomState, roomId){
+    let finishedTurn = true;
+    for(let i=0; i<4; i++){
+        if(roomState.players[i].playerState == PLAYING){
+            finishedTurn = false;
+            break;
+        }
+    }
+
+    if(finishedTurn){
+        store.dispatch(calculateTurn(roomId));
+        if(roomState.players[0].hand.length == 0){
+            if(roomState.deck.length == 0){
+                store.dispatch(finishGame(roomId));
+            }else{
+                store.dispatch(startRound(roomId));
+                asyncTimer(store, roomId);
+            }
+        }else{
+            asyncTimer(store, roomId);
+        }
+        
+    }
+    emitState(roomState);
+}

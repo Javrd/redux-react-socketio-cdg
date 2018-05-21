@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { nameChange } from '../sockets';
 
 const Misc = ({  state, time }) => {    
     
@@ -12,6 +13,14 @@ const Misc = ({  state, time }) => {
           <div>Ronda: {state.round}</div>
           <div>Estado del jugador: {state.playerState}</div>
           <div>Estado de la sala: {state.state}</div>
+
+          <div className="form-inline justify-content-center" >
+            <div className="form-group mx-sm-3 mb-2">
+              <input type="text" className="form-control" id="nombre_form" placeholder="Nuevo nombre" />
+            </div>
+            <button type="submit" className="btn btn-primary mb-2" onClick={() => nameChange()}>Enviar</button>
+          </div>
+
         </p>
       </div>
     </div>

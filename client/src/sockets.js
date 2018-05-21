@@ -48,6 +48,13 @@ export const emitPlayCard = (cardId) => socket.emit('playCard', cardId);
 
 export const emitCreateRoom = () => socket.emit('createRoom');
 
+export const nameChange = () => {
+    let newName = document.getElementById("nombre_form").value;
+    if(newName.trim()!="" && newName.trim().length<=30){
+        socket.emit('nameChange', newName);
+    }    
+    document.getElementById("nombre_form").value = "";
+};
 export const emitJoinRoom = (roomId) => {
   window.location.href = '/'+roomId;
 };

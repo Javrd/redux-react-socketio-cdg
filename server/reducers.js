@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { PLAY_CARD, CALCULATE_TURN, START_ROUND, START_GAME, 
-  FINISH_GAME, JOIN_ROOM, LEFT_ROOM, CREATE_ROOM, FINISH_TIMER } from './actions';
+  FINISH_GAME, JOIN_ROOM, LEFT_ROOM, CREATE_ROOM, FINISH_TIMER, NAME_CHANGE } from './actions';
 import { DECK, POINTS, PAREJA, TRIO, ACUMULATIVO, INCREMENTAL, 
   SIMPLE1, SIMPLE2, SIMPLE3, COMBO, FINALE, COMUN } from './deck';
-import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, getAllIndexes} from './utils';
+import {WAITING, PLAYING, LOBBY, IN_GAME, FINISHED, getPlayer, getAllIndexes, getClientState} from './utils';
 
 const initialPlayerState = {
   playerId: 0,
@@ -154,8 +154,7 @@ function cdg(state = initialState, action) {
       let player = getPlayer(roomState.players, action.playerId)
       roomState.players.splice(roomState.players.indexOf(player),1);
       return newState;
-    }
-      
+    }      
     case FINISH_TIMER:{      
       for(let i=0; i<4; i++){
         let player = roomState.players[i];
@@ -168,6 +167,13 @@ function cdg(state = initialState, action) {
             +" no ha jugado y se le ha escogido la carta "+card);
         }
       }
+      return newState;
+    }
+    case NAME_CHANGE:{      
+      let player = getPlayer(roomState.players,action.playerId);
+
+      player.name = action.name;
+
       return newState;
     }
     default:{

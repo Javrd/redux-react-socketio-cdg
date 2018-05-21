@@ -1,7 +1,7 @@
 import SocketIO from 'socket.io';
 import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
 import { playCard, calculateTurn, startRound, startGame, finishGame, 
-    joinRoom, leftRoom, createRoom, finishTimer } from './actions';
+    joinRoom, leftRoom, createRoom, finishTimer, nameChange } from './actions';
 /* Conexion */
 
 const io = new SocketIO();
@@ -25,10 +25,27 @@ const onPlayCard = (store, client) => {
         store.dispatch(playCard(cardId, client.id, roomId));
         state = store.getState().cdg;
         roomState = getRoom(state.rooms, roomId);
-        console.log(getPlayer(roomState.players,client.id).playerId, 'played card with id', cardId,
+        console.log(getPlayer(roomState.players,client.id).name, 'played card with id', cardId,
                 'in room', roomId );
 
         finishedTurn(store,roomState,roomId);
+    });
+};
+
+const onNameChange = (store, client) => {
+
+    client.on('nameChange', (newName) => {
+
+        let state;
+        let roomState;
+        let roomId;
+
+        roomId = getClientRoomId(store, client);
+        store.dispatch(nameChange(newName, client.id, roomId));
+        state = store.getState().cdg;
+        roomState = getRoom(state.rooms, roomId);
+
+        emitState(roomState);
     });
 };
 
@@ -125,6 +142,7 @@ export const onConnection = (store) => {
                 // Se registran los eventos que puede lanzar el cliente.
                 onDisconnection(store, client);
                 onPlayCard(store, client);
+                onNameChange(store, client);
 
                 client.join(roomId);
                 store.dispatch(joinRoom(client.id, roomId));

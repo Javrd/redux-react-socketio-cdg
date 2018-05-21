@@ -1,13 +1,7 @@
 import SocketIO from 'socket.io';
-<<<<<<< HEAD
-import { playCard, calculateTurn, startRound, startGame, finishGame, joinRoom, leftRoom, createRoom } from './actions';
 import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
-=======
 import { playCard, calculateTurn, startRound, startGame, finishGame, 
     joinRoom, leftRoom, createRoom, finishTimer } from './actions';
-import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
->>>>>>> 66d5891999e2d6dfd677c8238c74363a0aef6d21
-
 /* Conexion */
 
 const io = new SocketIO();

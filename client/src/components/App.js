@@ -28,11 +28,14 @@ const App = ({rooms}) => {
       </div>
       <footer className="footer navbar-fixed-bottom">
         <div className="container">
-          <p className="text-muted text-right">
-            <a href='reglas' target="_blank">Reglas</a>&nbsp;·&nbsp; 
-            <a href='https://github.com/javrd' target="_blank"><img src={logo} width='20px'/>&nbsp;Javrd</a>&nbsp;·&nbsp; 
-            <a href='https://github.com/Daniglper' target="_blank"><img src={logo} width='20px'/>&nbsp;Daniglper</a>
-          </p>
+          <div className="float-left">
+            <span className="text-muted">v1.0.0</span>
+          </div>
+          <div className="float-right">
+            <a href='reglas' target="_blank">Reglas</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+            <a href='https://github.com/javrd' target="_blank"rel="noopener noreferrer" ><img src={logo} width='20px' alt="Github logo"/>&nbsp;Javrd</a>&nbsp;&nbsp;·&nbsp;&nbsp; 
+            <a href='https://github.com/Daniglper' target="_blank"rel="noopener noreferrer" ><img src={logo} width='20px' alt="Github logo"/>&nbsp;Daniglper</a>
+          </div>
         </div>
       </footer>
     </div>

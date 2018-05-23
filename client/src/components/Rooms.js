@@ -10,7 +10,7 @@ const Rooms = ( {rooms} ) => {
       <div>
         {rooms.map(x => {
           let extra ="";
-          if(x.state==IN_GAME){ extra = " [En Partida]";}
+          if(x.state===IN_GAME){ extra = " [En Partida]";}
           if(x.players<4 && x.state!==FINISHED){            
             return (
               <div key={x.roomId}>              

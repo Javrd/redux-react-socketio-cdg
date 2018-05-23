@@ -56,11 +56,6 @@ function cdg(state = initialState, action) {
           hand.push(deck[randomNumber]);
           deck.splice(randomNumber,1);
         }
-        if (player.type === BOT){
-          playFirstCard(player)
-          console.log("BOT: " + player.name +" de la sala "+roomState.roomId
-          +" no ha jugado y se le ha escogido la carta "+player.playedCard.type);
-        }
       }
       roomState = contadorPuntos(roomState);
 
@@ -110,19 +105,6 @@ function cdg(state = initialState, action) {
 
       roomState.turn++;
 
-      // Juegan los bots
-      if (roomState.turn<9){
-        let bots = roomState.players.filter(player => player.type === BOT)
-        for(let i in bots){
-          console.log(bots[i].name)
-          if (bots[i].type === BOT){
-            playFirstCard(bots[i]);
-            console.log("BOT: " + bots[i].name +" de la sala "+roomState.roomId
-            +" no ha jugado y se le ha escogido la carta "+bots[i].playedCard.type);
-          }
-        }
-      }
-
       return newState;
     }
     case START_GAME:{
@@ -150,20 +132,28 @@ function cdg(state = initialState, action) {
       return newState;
     }
     case JOIN_ROOM:{
-      let player =Object.assign({}, initialPlayerState);
-      let playerNumber = roomState.players.length + 1;
-      let playerNames = roomState.players.map(player => player.name);
-      player.playerId = action.playerId;
-      player.hand = [];
-      player.table = [];
-      player.name = "Jugador "+playerNumber;
-      while (playerNames.includes(player.name)){
-        playerNumber = playerNumber+1;
-        playerNumber = playerNumber === 5? 1: playerNumber;
+      if(roomState.state===LOBBY){
+        let player =Object.assign({}, initialPlayerState);
+        let playerNumber = roomState.players.length + 1;
+        let playerNames = roomState.players.map(player => player.name);
+        player.playerId = action.playerId;
+        player.hand = [];
+        player.table = [];
         player.name = "Jugador "+playerNumber;
+        while (playerNames.includes(player.name)){
+          playerNumber = playerNumber+1;
+          playerNumber = playerNumber === 5? 1: playerNumber;
+          player.name = "Jugador "+playerNumber;
+        }
+        roomState.players.push(player);
+      } else if (roomState.state===IN_GAME){
+        let bots = roomState.players.filter(p => p.type===BOT);
+        let player = bots[0];
+        player.playerId = action.playerId;
+        player.type = HUMAN;
+
       }
-      roomState.players.push(player);
-      
+        
       return newState;
     }
     case LEFT_ROOM:{
@@ -171,14 +161,18 @@ function cdg(state = initialState, action) {
 
       if(roomState!=null) {
         player = getPlayer(roomState.players, action.playerId)
-        if (roomState.state === LOBBY || roomState.state === FINISHED) {
+        if (roomState.state === LOBBY ) {
           roomState.players.splice(roomState.players.indexOf(player),1);
         } else if (roomState.state === IN_GAME) {
           player.type = BOT;
-          if(player.playedCard==null){
-            playFirstCard(player);
-            console.log("BOT: " + player.name +" de la sala "+roomState.roomId
-            +" no ha jugado y se le ha escogido la carta "+player.playedCard.type);
+        } else if (roomState.state === FINISHED){          
+          roomState.players.splice(roomState.players.indexOf(player),1);
+          if(roomState.players.filter(p => p.type===HUMAN).length===0){
+            roomState.players = [];
+            roomState.deck = DECK();
+            roomState.state = LOBBY;
+            roomState.round = 0;
+            roomState.turn = 0;
           }
         }
       }

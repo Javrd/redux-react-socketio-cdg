@@ -53,17 +53,20 @@ export const getClientState = (roomState, player) => {
         player2: {
             table: player2.table,
             score: player2.score,
-            name: player2.name
+            name: player2.name,
+            type: player2.type
         },
         player3: {
             table: player3.table,
             score: player3.score,
-            name: player3.name
+            name: player3.name,
+            type: player3.type
         },
         player4: {
             table: player4.table,
             score: player4.score,
-            name: player4.name
+            name: player4.name,
+            type: player4.type
         }, 
         state: roomState.state,
         round: roomState.round,

@@ -1,5 +1,5 @@
 import SocketIO from 'socket.io';
-import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY} from './utils';
+import { getPlayer, getRoom, getClientRoomId, getClientState, PLAYING, LOBBY, HUMAN, FINISHED} from './utils';
 import { playCard, calculateTurn, startRound, startGame, finishGame, 
     joinRoom, leftRoom, createRoom, finishTimer, nameChange } from './actions';
 /* Conexion */
@@ -97,7 +97,7 @@ const emitState = (roomState) => {
 
 const emitRooms = (rooms, client) => {
     rooms = rooms.map(x => {
-        return {roomId: x.roomId, players: x.players.length};
+        return {roomId: x.roomId, players: x.players.filter(p => p.type === HUMAN).length, state: x.state};
     });
     if (client){
         io.to(client.id).emit('syncRooms', rooms);
@@ -136,18 +136,19 @@ export const onConnection = (store) => {
 
         } else {
             let roomState = getRoom(state.rooms, roomId);
-            if(roomState!=null && roomState.players.length<4) {
+            if(roomState!=null && roomState.players.filter(p => p.type===HUMAN).length<4
+                && roomState.state!==FINISHED) {
                 // Se registran los eventos que puede lanzar el cliente.
                 onDisconnection(store, client);
                 onPlayCard(store, client);
                 onNameChange(store, client);
-
+                
                 client.join(roomId);
                 store.dispatch(joinRoom(client.id, roomId));
 
                 console.log(client.id, 'connected on', roomId + '.');
 
-                if(roomState.players.length==4){
+                if(roomState.players.length==4 && roomState.state===LOBBY){
                     store.dispatch(startGame(roomId));
                     store.dispatch(startRound(roomId));
                     asyncTimer(store, roomId);
@@ -172,7 +173,7 @@ async function asyncTimer(store, roomId) {
     await new Promise(resolve => {
         timer = setTimeout(() => {
             resolve();
-        }, 60000);
+        }, 100);//pepe
         });
 
     store.dispatch(finishTimer(roomId));

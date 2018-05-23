@@ -3,7 +3,7 @@ import ContainerRooms from '../containers/ContainerRooms';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import logo from '../logo.svg';
+// import logo from '../logo.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Route } from "react-router-dom";
@@ -13,7 +13,7 @@ const App = ({rooms}) => {
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h1 className="App-title">Cdg</h1>
+        <a href="/" className="App-title">Cdg</a>
         {/* <h2 className="App-text">Selecciona una carta para jugar</h2> */}
       </header>
       <div className="Container">

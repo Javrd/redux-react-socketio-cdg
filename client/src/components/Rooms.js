@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { emitJoinRoom, emitCreateRoom } from '../sockets';
+import {IN_GAME} from '../utils.js';
 
 
 const Rooms = ( {rooms} ) => {
@@ -8,12 +9,14 @@ const Rooms = ( {rooms} ) => {
     <div>
       <div>
         {rooms.map(x => {
-          if(x.players<4){
+          let extra ="";
+          if(x.state==IN_GAME){ extra = " [En Partida]";}
+          if(x.players<4){            
             return (
               <div key={x.roomId}>              
               <br/>
                 <button type="button" className="btn btn-default" onClick={() => emitJoinRoom(x.roomId)}>{
-                  "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
+                  "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"+extra
                 }</button>
               </div>
             );
@@ -22,7 +25,7 @@ const Rooms = ( {rooms} ) => {
               <div key={x.roomId}>              
               <br/>
                 <button type="button" className="btn" disabled>{
-                  "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"
+                  "Sala "+x.roomId+" - Jugadores: "+x.players+"/4"+extra
                 }</button>
               </div>
             );

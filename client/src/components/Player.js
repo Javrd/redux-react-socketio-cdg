@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ContainerTable from '../containers/ContainerTable';
+import {BOT} from '../utils.js';
 
 const Player = ({  player, principal, playedCard }) => {  
   return (
     <div className={principal ? 'card text-white bg-primary mb-3' : 'card text-white bg-danger mb-3'}>
       <div className="card-header">
         {player.name} 
-        
+        {player.type===BOT&& <span> - Ha dejado la partida</span>}
       </div>
 
       <div className="card-body">

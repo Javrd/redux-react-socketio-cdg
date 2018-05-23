@@ -75,7 +75,7 @@ const onDisconnection = (store, client) => {
 
         let roomState = getRoom(state.rooms, roomId);
         // Se registran los eventos que puede lanzar el cliente.
-        console.log("Desconexion de " + client.id)
+        console.log("Desconexion de " + client.id +" en " + roomId)
         store.dispatch(leftRoom(client.id, roomId));
         
         emitState(roomState);

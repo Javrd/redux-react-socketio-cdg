@@ -2,28 +2,39 @@ import ContainerScreen from '../containers/ContainerScreen';
 import ContainerRooms from '../containers/ContainerRooms';
 import ContainerRules from '../containers/ContainerRules';
 import '../css/App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
-// import logo from '../logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import logo from '../logo.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Route } from "react-router-dom";
 
 const App = ({rooms}) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <a href="/" className="App-title">Cdg</a>
-        {/* <h2 className="App-text">Selecciona una carta para jugar</h2> */}
-      </header>
-      <div className="Container">
-        <Route exact path="/" component={ContainerRooms} />
-        {rooms.map(x => 
-          <Route exact key={x.roomId} path={"/"+x.roomId} component={ContainerScreen} />
-        )}
-        <Route exact path="/reglas" component={ContainerRules} />
+    <div className="Site">
+      <div className="App">
+        <header className="App-header">
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          <a href="/" className="App-title">Cdg</a>
+          {/* <h2 className="App-text">Selecciona una carta para jugar</h2> */}
+        </header>
+        <div className="Container">
+          <Route exact path="/" component={ContainerRooms} />
+          {rooms.map(x => 
+            <Route exact key={x.roomId} path={"/"+x.roomId} component={ContainerScreen} />
+          )}
+          <Route exact path="/reglas" component={ContainerRules} />
+        </div>
       </div>
+      <footer className="footer navbar-fixed-bottom">
+        <div className="container">
+          <p className="text-muted text-right">
+            <a href='reglas' target="_blank">Reglas</a>&nbsp;·&nbsp; 
+            <a href='https://github.com/javrd' target="_blank"><img src={logo} width='20px'/>&nbsp;Javrd</a>&nbsp;·&nbsp; 
+            <a href='https://github.com/Daniglper' target="_blank"><img src={logo} width='20px'/>&nbsp;Daniglper</a>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };

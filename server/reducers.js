@@ -103,7 +103,9 @@ function cdg(state = initialState, action) {
       }
       roomState.players[3].hand = firstPlayerHand;
 
-      roomState.turn++;
+      if(roomState.turn<8){
+        roomState.turn++;        
+      }
 
       return newState;
     }

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { SYNC_STATE, SYNC_ROOMS, DECREMENTA_TIMER, RESET_TIMER } from './actions';
-import {WAITING, LOBBY} from './utils';
+import {WAITING, LOBBY, FINISHED} from './utils';
 
 const initialState = {
   playerId: 0,
@@ -28,10 +28,15 @@ function cdg(state = initialState, action) {
       return newState;
     }
     case SYNC_STATE:{
-      let time =  state.time;
-      let newState = Object.assign({}, action.state);
-      newState.rooms = state.rooms;
-      newState.time = time;
+      let newState;
+      if(state.state!==FINISHED){          
+        let time =  state.time;
+        newState = Object.assign({}, action.state);
+        newState.rooms = state.rooms;
+        newState.time = time;
+      }else{
+        newState = Object.assign({}, state);
+      }
       return newState;
     }
     case DECREMENTA_TIMER:{

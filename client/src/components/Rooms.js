@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { emitJoinRoom, emitCreateRoom } from '../sockets';
-import {IN_GAME} from '../utils.js';
+import {IN_GAME, FINISHED} from '../utils.js';
 
 
 const Rooms = ( {rooms} ) => {
@@ -11,7 +11,7 @@ const Rooms = ( {rooms} ) => {
         {rooms.map(x => {
           let extra ="";
           if(x.state==IN_GAME){ extra = " [En Partida]";}
-          if(x.players<4){            
+          if(x.players<4 && x.state!==FINISHED){            
             return (
               <div key={x.roomId}>              
               <br/>

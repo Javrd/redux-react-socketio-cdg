@@ -1,5 +1,6 @@
 import ContainerScreen from '../containers/ContainerScreen';
 import ContainerRooms from '../containers/ContainerRooms';
+import ContainerRules from '../containers/ContainerRules';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -21,6 +22,7 @@ const App = ({rooms}) => {
         {rooms.map(x => 
           <Route exact key={x.roomId} path={"/"+x.roomId} component={ContainerScreen} />
         )}
+        <Route exact path="/reglas" component={ContainerRules} />
       </div>
     </div>
   );

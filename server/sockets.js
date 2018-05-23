@@ -134,7 +134,7 @@ export const onConnection = (store) => {
             onCreateRoom(store, client);
             emitRooms(state.rooms, client);
 
-        } else {
+        } else if(roomId.match(/\d+/)){
             let roomState = getRoom(state.rooms, roomId);
             if(roomState!=null && roomState.players.filter(p => p.type===HUMAN).length<4
                 && roomState.state!==FINISHED) {
@@ -159,6 +159,8 @@ export const onConnection = (store) => {
             }else{
                 emitRedirect(client.id);
             }
+        } else if(roomId==="reglas") {
+            
         }
 
     });
@@ -173,7 +175,7 @@ async function asyncTimer(store, roomId) {
     await new Promise(resolve => {
         timer = setTimeout(() => {
             resolve();
-        }, 100);//pepe
+        }, 60000);//tiempo por turno
         });
 
     store.dispatch(finishTimer(roomId));

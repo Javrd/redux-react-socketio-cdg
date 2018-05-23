@@ -20,8 +20,10 @@
   color: white;
 }
 
-.App-title {
+.App-title, .App-title:hover {
   font-size: 1.5em;
+  text-decoration: none;
+  color: white;
 }
 
 .App-text {

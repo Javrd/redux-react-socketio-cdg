@@ -15,7 +15,7 @@ const App = ({rooms}) => {
       <div className="App">
         <header className="App-header">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <a href="/" className="App-title">Cdg</a>
+          <a href="/" className="App-title">CDG</a>
           {/* <h2 className="App-text">Selecciona una carta para jugar</h2> */}
         </header>
         <div className="Container">

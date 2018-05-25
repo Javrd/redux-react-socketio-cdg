@@ -1,4 +1,11 @@
+.Site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .App {
+  flex: 1;
   text-align: center;
 }
 
@@ -13,8 +20,10 @@
   color: white;
 }
 
-.App-title {
+.App-title, .App-title:hover {
   font-size: 1.5em;
+  text-decoration: none;
+  color: white;
 }
 
 .App-text {

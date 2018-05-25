@@ -165,15 +165,17 @@ export const onConnection = (store) => {
 
     });
 };
-var timer;
+var timer = {};
 async function asyncTimer(store, roomId) {
 
     let state = store.getState().cdg;
     let roomState = getRoom(state.rooms,roomId);
     emitTimer(roomState);
-    clearTimeout(timer);
+    if(timer && timer[roomId]){
+        clearTimeout(timer[roomId]);
+    }    
     await new Promise(resolve => {
-        timer = setTimeout(() => {
+        timer[roomId] = setTimeout(() => {
             resolve();
         }, 60000);//tiempo por turno
         });

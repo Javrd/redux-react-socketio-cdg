@@ -165,9 +165,9 @@ function cdg(state = initialState, action) {
         player = getPlayer(roomState.players, action.playerId)
         if (roomState.state === LOBBY ) {
           roomState.players.splice(roomState.players.indexOf(player),1);
-        } else if (roomState.state === IN_GAME) {
+        } else if (roomState.state === IN_GAME && roomState.players.filter(p => p.type===HUMAN).length>1) {
           player.type = BOT;
-        } else if (roomState.state === FINISHED){          
+        } else if (roomState.state === FINISHED || roomState.players.filter(p => p.type===HUMAN).length===1){
           roomState.players.splice(roomState.players.indexOf(player),1);
           if(roomState.players.filter(p => p.type===HUMAN).length===0){
             roomState.players = [];

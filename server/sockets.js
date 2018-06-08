@@ -203,6 +203,7 @@ function finishedTurn(store, roomState, roomId){
         if(roomState.players[0].hand.length == 0){
             if(roomState.deck.length == 0){
                 store.dispatch(finishGame(roomId));
+                emitRooms(store.getState().cdg.rooms);
             }else{
                 store.dispatch(startRound(roomId));
                 asyncTimer(store, roomId);

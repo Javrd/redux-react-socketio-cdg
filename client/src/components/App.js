@@ -29,7 +29,7 @@ const App = ({rooms}) => {
       <footer className="footer navbar-fixed-bottom">
         <div className="container">
           <div className="float-left">
-            <span className="text-muted">v1.0.2</span>
+            <span className="text-muted">v1.0.3</span>
           </div>
           <div className="float-right">
             <a href='reglas' target="_blank">Reglas</a>&nbsp;&nbsp;·&nbsp;&nbsp;

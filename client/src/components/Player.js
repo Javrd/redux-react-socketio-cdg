@@ -12,7 +12,7 @@ const Player = ({  player, principal, playedCard, finished }) => {
         {player.name} &nbsp;
         {(principal && !finished) && 
         <button type="button" className="btn btn-success" data-toggle="modal" data-target="#nickModal">
-          <img src={edit} width="20"/>
+          <img src={edit} width="20" alt="Icono de edicion"/>
         </button>
         }
         {/* Modal */}

@@ -62,7 +62,7 @@ const Misc = ({  state, time }) => {
         <div className="card-body">
           <p className="card-text">
             Esperando a otros jugadores {count}/4
-            <img src={loading}  width="40"/>
+            <img src={loading}  width="40" alt="Icono de carga"/>
           </p>
         </div>
       </div>

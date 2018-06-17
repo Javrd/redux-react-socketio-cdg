@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => {
     player: ownProps.player,
     principal: ownProps.principal,
     finished: state.cdg.state === FINISHED,
-    playedICard: state.cdg.playedCard
+    playedCard: state.cdg.playedCard
   };
 };
 
